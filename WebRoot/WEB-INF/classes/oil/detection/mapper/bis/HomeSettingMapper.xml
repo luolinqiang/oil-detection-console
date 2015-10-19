@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.HomeSettingDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.HomeSetting">
+        <result column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="target_id" property="target_id"/>
+        <result column="sort" property="sort_desc"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- home_setting table all fields -->
+    <sql id="Base_Column_List">
+	 id,type,target_id,`sort`,create_time,update_time,state,remark
+</sql>
+
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="target_id != null and target_id != ''">
+                and target_id = #{target_id}
+            </if>
+            <if test="sort_desc != null and sort != ''">
+                and `sort` = #{sort_desc}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </trim>
+    </sql>
+
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into home_setting(id,type,target_id,`sort`,create_time,update_time,state,remark)
+        values(#{id},#{type},#{target_id},#{sort_desc},#{create_time},#{update_time},#{state},#{remark})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+  update home_setting set type=#{type},target_id=#{target_id},`sort`=#{sort_desc},create_time=#{create_time},update_time=#{update_time},state=#{state},remark=#{remark} where id=#{id}
+ </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update home_setting set
+        <trim suffixOverrides=",">
+            <if test="type != null  ">
+                type=#{type},
+            </if>
+            <if test="target_id != null  ">
+                target_id=#{target_id},
+            </if>
+            <if test="sort_desc != null  ">
+                `sort`=#{sort_desc},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
+	delete 	 from home_setting where id = #{id}
+</delete>
+
+    <!-- 根据id查询 首页设置 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from home_setting where id = #{id}
+    </select>
+
+    <!-- 首页设置 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from home_setting
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询首页设置列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from home_setting
+        <include refid="Example_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
+</mapper>   

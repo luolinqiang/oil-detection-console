@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.DictionaryDao" > 
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="oil.detection.entity.bis.Dictionary" >
+	<result column="id" property="id"/>
+	<result column="group_code" property="group_code"/>
+	<result column="group_name" property="group_name"/>
+	<result column="code" property="code"/>
+	<result column="name" property="name"/>
+	<result column="pid" property="pid"/>
+	<result column="create_time" property="create_time"/>
+	<result column="update_time" property="update_time"/>
+	<result column="state" property="state"/>
+	<result column="remark" property="remark"/>
+</resultMap>
+       
+<!-- dictionary table all fields -->
+<sql id="Base_Column_List" >
+	 id,group_code,group_name,code,name,pid,create_time,update_time,state,remark
+</sql>
+   
+   
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+where 1=1
+<trim  suffixOverrides="," >
+	<if test="id != null and id != ''" >
+	    and id =  #{id}
+	</if>
+	<if test="group_code != null and group_code != ''" >
+	    and group_code =  #{group_code}
+	</if>
+	<if test="group_name != null and group_name != ''" >
+	    and group_name =  #{group_name}
+	</if>
+	<if test="code != null and code != ''" >
+	    and code =  #{code}
+	</if>
+	<if test="name != null and name != ''" >
+	    and name =  #{name}
+	</if>
+	<if test="pid != null and pid != ''" >
+	    and pid =  #{pid}
+	</if>
+	<if test="create_time != null and create_time != ''" >
+	    and create_time =  #{create_time}
+	</if>
+	<if test="update_time != null and update_time != ''" >
+	    and update_time =  #{update_time}
+	</if>
+	<if test="state != null and state != ''" >
+	    and state =  #{state}
+	</if>
+	<if test="remark != null and remark != ''" >
+	    and remark =  #{remark}
+	</if>
+</trim>
+</sql>
+   
+
+<!-- 插入记录 -->
+<insert id="add" parameterType="Object" >
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	SELECT LAST_INSERT_ID()
+  </selectKey>
+  insert into dictionary(id,group_code,group_name,code,name,pid,create_time,update_time,state,remark)
+ values(#{id},#{group_code},#{group_name},#{code},#{name},#{pid},#{create_time},#{update_time},#{state},#{remark})
+</insert>
+
+<!-- 根据id，修改记录-->  
+ <update id="update" parameterType="Object" >
+  update dictionary set group_code=#{group_code},group_name=#{group_name},code=#{code},name=#{name},pid=#{pid},create_time=#{create_time},update_time=#{update_time},state=#{state},remark=#{remark} where id=#{id}
+ </update>
+ 
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="updateBySelective" parameterType="Object" >
+	update dictionary set 
+	<trim  suffixOverrides="," >
+	<if test="group_code != null  ">
+		group_code=#{group_code},
+	</if>
+	<if test="group_name != null  ">
+		group_name=#{group_name},
+	</if>
+	<if test="code != null  ">
+		code=#{code},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="pid != null  ">
+		pid=#{pid},
+	</if>
+	<if test="create_time != null  ">
+		create_time=#{create_time},
+	</if>
+	<if test="update_time != null  ">
+		update_time=#{update_time},
+	</if>
+	<if test="state != null  ">
+		state=#{state},
+	</if>
+	<if test="remark != null  ">
+		remark=#{remark},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 删除记录 -->
+<delete id="delete" parameterType="Object">
+	delete 	 from dictionary where id = #{id}
+</delete>
+ 
+<!-- 根据id查询 字典信息 -->
+<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from dictionary where id = #{id}
+</select>
+
+<!-- 字典信息 列表总数-->
+<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from dictionary 
+	<include refid="Example_Where_Clause"/>
+</select>
+  	
+<!-- 查询字典信息列表 -->
+<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from dictionary 
+	<include refid="Example_Where_Clause"/>
+	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
+      ${pager.orderCondition}
+    </if>
+    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
+       ${pager.mysqlQueryCondition}
+    </if>
+</select>
+  	
+</mapper>   

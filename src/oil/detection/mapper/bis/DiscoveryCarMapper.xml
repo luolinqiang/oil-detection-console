@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.DiscoveryCarDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.DiscoveryCar">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="goods" property="goods"/>
+        <result column="weight" property="weight"/>
+        <result column="price" property="price"/>
+        <result column="need_tank" property="need_tank"/>
+        <result column="delivery_time" property="delivery_time"/>
+        <result column="remark" property="remark"/>
+        <result column="sender_name" property="sender_name"/>
+        <result column="sender_phone" property="sender_phone"/>
+        <result column="origin" property="origin"/>
+        <result column="destination" property="destination"/>
+        <result column="download_contract" property="download_contract"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="real_name" property="real_name"/>
+        <result column="origin_name" property="origin_name"/>
+        <result column="dest_name" property="dest_name"/>
+        <result column="need_tank_desc" property="need_tank_desc"/>
+    </resultMap>
+
+    <!-- discovery_car table all fields -->
+    <sql id="Base_Column_List">
+	 id,user_id,goods,weight,price,need_tank,delivery_time,remark,sender_name,sender_phone,origin,destination,download_contract,create_time,update_time,state
+</sql>
+
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="user_id != null and user_id != ''">
+                and user_id = #{user_id}
+            </if>
+            <if test="goods != null and goods != ''">
+                and goods = #{goods}
+            </if>
+            <if test="weight != null and weight != ''">
+                and weight = #{weight}
+            </if>
+            <if test="price != null and price != ''">
+                and price = #{price}
+            </if>
+            <if test="need_tank != null and need_tank != ''">
+                and need_tank = #{need_tank}
+            </if>
+            <if test="delivery_time != null and delivery_time != ''">
+                and delivery_time = #{delivery_time}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="sender_name != null and sender_name != ''">
+                and sender_name = #{sender_name}
+            </if>
+            <if test="sender_phone != null and sender_phone != ''">
+                and sender_phone = #{sender_phone}
+            </if>
+            <if test="origin != null and origin != ''">
+                and origin = #{origin}
+            </if>
+            <if test="destination != null and destination != ''">
+                and destination = #{destination}
+            </if>
+            <if test="download_contract != null and download_contract != ''">
+                and download_contract = #{download_contract}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+        </trim>
+    </sql>
+
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into
+        discovery_car(id,user_id,goods,weight,price,need_tank,delivery_time,remark,sender_name,sender_phone,origin,destination,download_contract,create_time,update_time,state)
+        values(#{id},#{user_id},#{goods},#{weight},#{price},#{need_tank},#{delivery_time},#{remark},#{sender_name},#{sender_phone},#{origin},#{destination},#{download_contract},#{create_time},#{update_time},#{state})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+  update discovery_car set user_id=#{user_id},goods=#{goods},weight=#{weight},price=#{price},need_tank=#{need_tank},delivery_time=#{delivery_time},remark=#{remark},sender_name=#{sender_name},sender_phone=#{sender_phone},origin=#{origin},destination=#{destination},download_contract=#{download_contract},create_time=#{create_time},update_time=#{update_time},state=#{state} where id=#{id}
+ </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update discovery_car set
+        <trim suffixOverrides=",">
+            <if test="user_id != null  ">
+                user_id=#{user_id},
+            </if>
+            <if test="goods != null  ">
+                goods=#{goods},
+            </if>
+            <if test="weight != null  ">
+                weight=#{weight},
+            </if>
+            <if test="price != null  ">
+                price=#{price},
+            </if>
+            <if test="need_tank != null  ">
+                need_tank=#{need_tank},
+            </if>
+            <if test="delivery_time != null  ">
+                delivery_time=#{delivery_time},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+            <if test="sender_name != null  ">
+                sender_name=#{sender_name},
+            </if>
+            <if test="sender_phone != null  ">
+                sender_phone=#{sender_phone},
+            </if>
+            <if test="origin != null  ">
+                origin=#{origin},
+            </if>
+            <if test="destination != null  ">
+                destination=#{destination},
+            </if>
+            <if test="download_contract != null  ">
+                download_contract=#{download_contract},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
+	delete 	 from discovery_car where id = #{id}
+</delete>
+
+    <!-- 根据id查询 找车信息 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from discovery_car where id = #{id}
+    </select>
+
+    <!-- 找车信息 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from discovery_car
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询找车信息列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        a1.area_name origin_name,
+        a2.area_name dest_name,
+        dic.name need_tank_desc,
+        u.real_name,
+        d.id,
+        d.user_id,
+        d.goods,
+        d.weight,
+        d.price,
+        d.need_tank,
+        d.delivery_time,
+        d.remark,
+        d.sender_name,
+        d.sender_phone,
+        d.origin,
+        d.destination,
+        d.download_contract,
+        d.create_time,
+        d.update_time,
+        d.state
+        from discovery_car d
+        left join area a1 on d.origin=a1.id
+        left join area a2 on d.destination=a2.id
+        left join dictionary dic on d.need_tank=dic.id
+        left join user u on d.user_id=u.id
+        <include refid="Example_Where_Clause"/>
+        <if test="real_name != null and real_name != ''">
+            and real_name = #{real_name}
+        </if>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
+</mapper>   
