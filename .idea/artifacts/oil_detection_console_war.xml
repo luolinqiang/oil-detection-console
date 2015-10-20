@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="oil-detection-console:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/oil_detection_console_war</output-path>
+    <root id="archive" name="oil-detection-console_war.war">
+      <element id="artifact" artifact-name="oil-detection-console:war exploded" />
+    </root>
+  </artifact>
+</component>

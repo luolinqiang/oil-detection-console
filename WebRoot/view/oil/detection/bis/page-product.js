@@ -1,5 +1,5 @@
-$package('jeecg.purchase');
-jeecg.purchase = function () {
+$package('jeecg.product');
+jeecg.product = function () {
     var _box = null;
     var _this = {
         config: {
@@ -14,12 +14,12 @@ jeecg.purchase = function () {
                 }
             },
             dataGrid: {
-                title: '采购商管理',
+                title: '产品管理',
                 url: 'dataList.do',
                 columns: [[
                     {field: 'id', checkbox: true},
                     {
-                        field: 'oil_type', title: '油类型', align: 'center', sortable: true,
+                        field: 'type', title: '产品类型', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             if (value == 1) {
                                 return "柴油";
@@ -27,67 +27,91 @@ jeecg.purchase = function () {
                             if (value == 2) {
                                 return "汽油";
                             }
-                            return row.oil_type;
+                            return row.type;
                         }
                     },
                     {
-                        field: 'purchase_type', title: '采购类型', align: 'center', sortable: true,
+                        field: 'inventory', title: '库存', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            if (value == 1) {
-                                return "采购需求";
-                            }
-                            if (value == 2) {
-                                return "代采申请";
-                            }
-                            return row.purchase_type;
+                            return row.inventory;
+                        }
+                    },
+                    {
+                        field: 'name', title: '产品名称', align: 'center', sortable: true,
+                        formatter: function (value, row, index) {
+                            return row.name;
+                        }
+                    },
+                    {
+                        field: 'price', title: '价格', align: 'center', sortable: true,
+                        formatter: function (value, row, index) {
+                            return row.price;
                         }
                     },
                     {
                         field: 'quality_standard_desc', title: '质量标准', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.quality_standard_desc;
+                            return row.quality_standard;
                         }
                     },
                     {
                         field: 'product_model_desc', title: '产品型号', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.product_model_desc;
+                            return row.product_model;
                         }
                     },
                     {
-                        field: 'number', title: '需求数量', align: 'center', sortable: true,
+                        field: 'product_addr', title: '提油地点', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.number;
+                            return row.product_addr;
                         }
                     },
                     {
-                        field: 'pay_type_desc', title: '付款方式', align: 'center', sortable: true,
+                        field: 'density', title: '密度', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.pay_type_desc;
+                            return row.density;
                         }
                     },
                     {
-                        field: 'delivery_type_desc', title: '提货方式', align: 'center', sortable: true,
+                        field: 'flash_point', title: '闪点', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.delivery_type_desc;
+                            return row.flash_point;
                         }
                     },
                     {
-                        field: 'delivery_addr', title: '提货地址', align: 'center', sortable: true,
+                        field: 'cetane_number', title: '十六烷值', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.delivery_addr;
+                            return row.cetane_number;
                         }
                     },
                     {
-                        field: 'conditions', title: '条件', align: 'center', sortable: true,
+                        field: 'cfpp', title: '冷滤点', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.conditions;
+                            return row.cfpp;
                         }
                     },
                     {
-                        field: 'other_require', title: ' 其他要求', align: 'center', sortable: true,
+                        field: 'color', title: '颜色', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.other_require;
+                            return row.color;
+                        }
+                    },
+                    {
+                        field: 'boiling_range', title: '馏程', align: 'center', sortable: true,
+                        formatter: function (value, row, index) {
+                            return row.boiling_range;
+                        }
+                    },
+                    {
+                        field: 'details', title: '详情', align: 'center', sortable: true,
+                        formatter: function (value, row, index) {
+                            return row.details;
+                        }
+                    },
+                    {
+                        field: 'sulphur_content', title: '硫含量', align: 'center', sortable: true,
+                        formatter: function (value, row, index) {
+                            return row.sulphur_content;
                         }
                     },
                     {
@@ -103,7 +127,7 @@ jeecg.purchase = function () {
                         }
                     },
                     {
-                        field: 'state', title: '状态(0：删除 1：审核中 2：审核通过)', align: 'center', sortable: true,
+                        field: 'state', title: '状态', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             if (value == 1) {
                                 return "待审核";
@@ -114,18 +138,6 @@ jeecg.purchase = function () {
                             return row.state;
                         }
                     },
-                    //{
-                    //    field: 'user_id', title: '用户id', align: 'center', sortable: true,
-                    //    formatter: function (value, row, index) {
-                    //        return row.user_id;
-                    //    }
-                    //},
-                    //{
-                    //    field: 'product_id', title: '产品id', align: 'center', sortable: true,
-                    //    formatter: function (value, row, index) {
-                    //        return row.product_id;
-                    //    }
-                    //},
                 ]]
             }
         },
@@ -142,14 +154,8 @@ jeecg.purchase = function () {
                 textField: 'name'
             });
 
-            $("#pay_type").combobox({
-                url: '/dic/dataJson.do?group_code=pay_type',
-                valueField: 'id',
-                textField: 'name'
-            });
-
-            $("#delivery_type").combobox({
-                url: '/dic/dataJson.do?group_code=delivery_type',
+            $("#color").combobox({
+                url: '/dic/dataJson.do?group_code=color',
                 valueField: 'id',
                 textField: 'name'
             });
@@ -162,5 +168,5 @@ jeecg.purchase = function () {
 }();
 
 $(function () {
-    jeecg.purchase.init();
+    jeecg.product.init();
 });

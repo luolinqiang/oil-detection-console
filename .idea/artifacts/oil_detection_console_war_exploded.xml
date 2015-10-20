@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" build-on-make="true" name="oil-detection-console:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/oil_detection_console_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="oil-detection-console" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="aopalliance-1.0" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="oil-detection-console/web/oil-detection-console" />
+    </root>
+  </artifact>
+</component>

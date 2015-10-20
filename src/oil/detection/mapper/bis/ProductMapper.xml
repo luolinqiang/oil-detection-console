@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.ProductDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.Product">
+        <result column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="inventory" property="inventory"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="quality_standard" property="quality_standard"/>
+        <result column="product_model" property="product_model"/>
+        <result column="product_addr" property="product_addr"/>
+        <result column="density" property="density"/>
+        <result column="flash_point" property="flash_point"/>
+        <result column="cetane_number" property="cetane_number"/>
+        <result column="cfpp" property="cfpp"/>
+        <result column="color" property="color"/>
+        <result column="boiling_range" property="boiling_range"/>
+        <result column="details_type" property="details_type"/>
+        <result column="details" property="details"/>
+        <result column="sulphur_content" property="sulphur_content"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="remark" property="remark"/>
+        <result column="supplier_id" property="supplier_id"/>
+    </resultMap>
+
+    <!-- product table all fields -->
+    <sql id="Base_Column_List">
+	 id,type,inventory,name,price,quality_standard,product_model,product_addr,density,flash_point,cetane_number,cfpp,color,boiling_range,details_type,details,sulphur_content,create_time,update_time,state,remark,supplier_id
+</sql>
+
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="inventory != null and inventory != ''">
+                and inventory = #{inventory}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="price != null and price != ''">
+                and price = #{price}
+            </if>
+            <if test="quality_standard != null and quality_standard != ''">
+                and quality_standard = #{quality_standard}
+            </if>
+            <if test="product_model != null and product_model != ''">
+                and product_model = #{product_model}
+            </if>
+            <if test="product_addr != null and product_addr != ''">
+                and product_addr = #{product_addr}
+            </if>
+            <if test="density != null and density != ''">
+                and density = #{density}
+            </if>
+            <if test="flash_point != null and flash_point != ''">
+                and flash_point = #{flash_point}
+            </if>
+            <if test="cetane_number != null and cetane_number != ''">
+                and cetane_number = #{cetane_number}
+            </if>
+            <if test="cfpp != null and cfpp != ''">
+                and cfpp = #{cfpp}
+            </if>
+            <if test="color != null and color != ''">
+                and color = #{color}
+            </if>
+            <if test="boiling_range != null and boiling_range != ''">
+                and boiling_range = #{boiling_range}
+            </if>
+            <if test="details_type != null and details_type != ''">
+                and details_type = #{details_type}
+            </if>
+            <if test="details != null and details != ''">
+                and details = #{details}
+            </if>
+            <if test="sulphur_content != null and sulphur_content != ''">
+                and sulphur_content = #{sulphur_content}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="supplier_id != null and supplier_id != ''">
+                and supplier_id = #{supplier_id}
+            </if>
+        </trim>
+    </sql>
+
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into
+        product(id,type,inventory,name,price,quality_standard,product_model,product_addr,density,flash_point,cetane_number,cfpp,color,boiling_range,details_type,details,sulphur_content,create_time,update_time,state,remark,supplier_id)
+        values(#{id},#{type},#{inventory},#{name},#{price},#{quality_standard},#{product_model},#{product_addr},#{density},#{flash_point},#{cetane_number},#{cfpp},#{color},#{boiling_range},#{details_type},#{details},#{sulphur_content},#{create_time},#{update_time},#{state},#{remark},#{supplier_id})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+        update product set
+        type=#{type},inventory=#{inventory},name=#{name},price=#{price},quality_standard=#{quality_standard},product_model=#{product_model},product_addr=#{product_addr},density=#{density},flash_point=#{flash_point},cetane_number=#{cetane_number},cfpp=#{cfpp},color=#{color},boiling_range=#{boiling_range},details_type=#{details_type},details=#{details},sulphur_content=#{sulphur_content},
+        <if test="state!= null">state = #{state,jdbcType=TINYINT},</if>remark=#{remark},supplier_id=#{supplier_id} where
+        id=#{id}
+    </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update product set
+        <trim suffixOverrides=",">
+            <if test="type != null  ">
+                type=#{type},
+            </if>
+            <if test="inventory != null  ">
+                inventory=#{inventory},
+            </if>
+            <if test="name != null  ">
+                name=#{name},
+            </if>
+            <if test="price != null  ">
+                price=#{price},
+            </if>
+            <if test="quality_standard != null  ">
+                quality_standard=#{quality_standard},
+            </if>
+            <if test="product_model != null  ">
+                product_model=#{product_model},
+            </if>
+            <if test="product_addr != null  ">
+                product_addr=#{product_addr},
+            </if>
+            <if test="density != null  ">
+                density=#{density},
+            </if>
+            <if test="flash_point != null  ">
+                flash_point=#{flash_point},
+            </if>
+            <if test="cetane_number != null  ">
+                cetane_number=#{cetane_number},
+            </if>
+            <if test="cfpp != null  ">
+                cfpp=#{cfpp},
+            </if>
+            <if test="color != null  ">
+                color=#{color},
+            </if>
+            <if test="boiling_range != null  ">
+                boiling_range=#{boiling_range},
+            </if>
+            <if test="details_type != null  ">
+                details_type=#{details_type},
+            </if>
+            <if test="details != null  ">
+                details=#{details},
+            </if>
+            <if test="sulphur_content != null  ">
+                sulphur_content=#{sulphur_content},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+            <if test="supplier_id != null  ">
+                supplier_id=#{supplier_id},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
+	delete 	 from product where id = #{id}
+</delete>
+
+    <!-- 根据id查询 产品管理 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from product where id = #{id}
+    </select>
+
+    <!-- 产品管理 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from product
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询产品管理列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        <include refid="Example_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
+</mapper>   

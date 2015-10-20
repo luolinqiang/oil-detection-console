@@ -45,7 +45,7 @@
                 <%--missingMessage="请填写油类型（1：柴油 2：汽油）">--%>
                 <label class="ui-label">油类型:</label>
                 <select name="oil_type" class="easyui-combobox" data-options="required:true">
-                    <option value="1" selected="selected">柴油</option>
+                    <option value="1" selected="checked">柴油</option>
                     <option value="2">汽油</option>
                 </select>
             </div>
@@ -63,16 +63,17 @@
                 <label>质量标准</label>
                 <%--<input name="quality_standard" type="text" maxlength="" class="easyui-validatebox" data-options=""--%>
                 <%--missingMessage="请填写质量标准">--%>
-                <select id="quality_standard" name="quality_standard" class="easyui-combobox" data-options="required:true"
-                        missingMessage="请填写质量标准">
+                <select id="quality_standard" name="quality_standard" class="easyui-combobox"
+                        data-options="required:true"
+                        style="width: 50px" missingMessage="请填写质量标准">
                 </select>
             </div>
             <div class="fitem">
                 <label>产品型号</label>
                 <%--<input name="product_model" type="text" maxlength="" class="easyui-validatebox" data-options=""--%>
                 <%--missingMessage="请填写产品型号">--%>
-                <select name="product_model" class="easyui-combobox" data-options="required:true"
-                        missingMessage="请填写产品型号">
+                <select id="product_model" name="product_model" class="easyui-combobox" data-options="required:true"
+                        style="width: 50px" missingMessage="请填写产品型号">
                 </select>
             </div>
             <div class="fitem">
@@ -84,14 +85,16 @@
                 <label>付款方式</label>
                 <%--<input name="pay_type" type="text" maxlength="" class="easyui-validatebox" data-options=""--%>
                 <%--missingMessage="请填写付款方式">--%>
-                <select name="pay_type" class="easyui-combobox" data-options="required:true" missingMessage="请填写付款方式">
+                <select id="pay_type" name="pay_type" class="easyui-combobox" data-options="required:true"
+                        style="width: 70px" missingMessage="请填写付款方式">
                 </select>
             </div>
             <div class="fitem">
                 <label>提货方式</label>
                 <%--<input name="delivery_type" type="text" maxlength="" class="easyui-validatebox" data-options=""--%>
                 <%--missingMessage="请填写提货方式">--%>
-                <select name="pay_type" class="delivery_type" data-options="required:true" missingMessage="请填写提货方式">
+                <select id="delivery_type" name="delivery_type" class="delivery_type" data-options="required:true"
+                        style="width: 50px" missingMessage="请填写提货方式">
                 </select>
             </div>
             <div class="fitem">
@@ -108,31 +111,6 @@
                 <label> 其他要求</label>
                 <input name="other_require" type="text" maxlength="255" class="easyui-validatebox" data-options=""
                        missingMessage="请填写 其他要求">
-            </div>
-            <div class="fitem">
-                <label>创建时间</label>
-                <input name="create_time" type="text" maxlength="" class="easyui-validatebox" data-options=""
-                       missingMessage="请填写创建时间">
-            </div>
-            <div class="fitem">
-                <label>update_time</label>
-                <input name="update_time" type="text" maxlength="" class="easyui-validatebox"
-                       data-options="required:true" missingMessage="请填写update_time">
-            </div>
-            <div class="fitem">
-                <label>备注</label>
-                <input name="remark" type="text" maxlength="255" class="easyui-validatebox" data-options=""
-                       missingMessage="请填写备注">
-            </div>
-            <div class="fitem">
-                <label>用户id</label>
-                <input name="user_id" type="text" maxlength="" class="easyui-validatebox" data-options=""
-                       missingMessage="请填写用户id">
-            </div>
-            <div class="fitem">
-                <label>产品id</label>
-                <input name="product_id" type="text" maxlength="" class="easyui-validatebox" data-options=""
-                       missingMessage="请填写产品id">
             </div>
         </div>
     </form>
