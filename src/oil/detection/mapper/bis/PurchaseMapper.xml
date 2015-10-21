@@ -1,192 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="oil.detection.dao.bis.PurchaseDao" > 
-<!-- Result Map-->
-<resultMap id="BaseResultMap" type="oil.detection.entity.bis.Purchase" >
-	<result column="id" property="id"/>
-	<result column="oil_type" property="oil_type"/>
-	<result column="purchase_type" property="purchase_type"/>
-	<result column="quality_standard" property="quality_standard"/>
-	<result column="product_model" property="product_model"/>
-	<result column="number" property="number"/>
-	<result column="pay_type" property="pay_type"/>
-	<result column="delivery_type" property="delivery_type"/>
-	<result column="delivery_addr" property="delivery_addr"/>
-	<result column="conditions" property="conditions"/>
-	<result column="other_require" property="other_require"/>
-	<result column="create_time" property="create_time"/>
-	<result column="update_time" property="update_time"/>
-	<result column="state" property="state"/>
-	<result column="remark" property="remark"/>
-	<result column="user_id" property="user_id"/>
-	<result column="product_id" property="product_id"/>
-</resultMap>
-       
-<!-- purchase table all fields -->
-<sql id="Base_Column_List" >
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.PurchaseDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.Purchase">
+        <result column="id" property="id"/>
+        <result column="oil_type" property="oil_type"/>
+        <result column="purchase_type" property="purchase_type"/>
+        <result column="quality_standard" property="quality_standard"/>
+        <result column="product_model" property="product_model"/>
+        <result column="number" property="number"/>
+        <result column="pay_type" property="pay_type"/>
+        <result column="delivery_type" property="delivery_type"/>
+        <result column="delivery_addr" property="delivery_addr"/>
+        <result column="conditions" property="conditions"/>
+        <result column="other_require" property="other_require"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="remark" property="remark"/>
+        <result column="user_id" property="user_id"/>
+        <result column="product_id" property="product_id"/>
+    </resultMap>
+
+    <!-- purchase table all fields -->
+    <sql id="Base_Column_List">
 	 id,oil_type,purchase_type,quality_standard,product_model,number,pay_type,delivery_type,delivery_addr,conditions,other_require,create_time,update_time,state,remark,user_id,product_id
 </sql>
-   
-   
-<!-- 查询条件 -->
-<sql id="Example_Where_Clause">
-where 1=1
-<trim  suffixOverrides="," >
-	<if test="id != null and id != ''" >
-	    and id =  #{id}
-	</if>
-	<if test="oil_type != null and oil_type != ''" >
-	    and oil_type =  #{oil_type}
-	</if>
-	<if test="purchase_type != null and purchase_type != ''" >
-	    and purchase_type =  #{purchase_type}
-	</if>
-	<if test="quality_standard != null and quality_standard != ''" >
-	    and quality_standard =  #{quality_standard}
-	</if>
-	<if test="product_model != null and product_model != ''" >
-	    and product_model =  #{product_model}
-	</if>
-	<if test="number != null and number != ''" >
-	    and number =  #{number}
-	</if>
-	<if test="pay_type != null and pay_type != ''" >
-	    and pay_type =  #{pay_type}
-	</if>
-	<if test="delivery_type != null and delivery_type != ''" >
-	    and delivery_type =  #{delivery_type}
-	</if>
-	<if test="delivery_addr != null and delivery_addr != ''" >
-	    and delivery_addr =  #{delivery_addr}
-	</if>
-	<if test="conditions != null and conditions != ''" >
-	    and conditions =  #{conditions}
-	</if>
-	<if test="other_require != null and other_require != ''" >
-	    and other_require =  #{other_require}
-	</if>
-	<if test="create_time != null and create_time != ''" >
-	    and create_time =  #{create_time}
-	</if>
-	<if test="update_time != null and update_time != ''" >
-	    and update_time =  #{update_time}
-	</if>
-	<if test="state != null and state != ''" >
-	    and state =  #{state}
-	</if>
-	<if test="remark != null and remark != ''" >
-	    and remark =  #{remark}
-	</if>
-	<if test="user_id != null and user_id != ''" >
-	    and user_id =  #{user_id}
-	</if>
-	<if test="product_id != null and product_id != ''" >
-	    and product_id =  #{product_id}
-	</if>
-</trim>
-</sql>
-   
 
-<!-- 插入记录 -->
-<insert id="add" parameterType="Object" >
-<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-	SELECT LAST_INSERT_ID()
-  </selectKey>
-  insert into purchase(id,oil_type,purchase_type,quality_standard,product_model,number,pay_type,delivery_type,delivery_addr,conditions,other_require,create_time,update_time,state,remark,user_id,product_id)
- values(#{id},#{oil_type},#{purchase_type},#{quality_standard},#{product_model},#{number},#{pay_type},#{delivery_type},#{delivery_addr},#{conditions},#{other_require},#{create_time},#{update_time},#{state},#{remark},#{user_id},#{product_id})
-</insert>
 
-<!-- 根据id，修改记录-->  
- <update id="update" parameterType="Object" >
-  update purchase set oil_type=#{oil_type},purchase_type=#{purchase_type},quality_standard=#{quality_standard},product_model=#{product_model},number=#{number},pay_type=#{pay_type},delivery_type=#{delivery_type},delivery_addr=#{delivery_addr},conditions=#{conditions},other_require=#{other_require},create_time=#{create_time},update_time=#{update_time},state=#{state},remark=#{remark},user_id=#{user_id},product_id=#{product_id} where id=#{id}
- </update>
- 
- <!-- 修改记录，只修改只不为空的字段 -->
-<update id="updateBySelective" parameterType="Object" >
-	update purchase set 
-	<trim  suffixOverrides="," >
-	<if test="oil_type != null  ">
-		oil_type=#{oil_type},
-	</if>
-	<if test="purchase_type != null  ">
-		purchase_type=#{purchase_type},
-	</if>
-	<if test="quality_standard != null  ">
-		quality_standard=#{quality_standard},
-	</if>
-	<if test="product_model != null  ">
-		product_model=#{product_model},
-	</if>
-	<if test="number != null  ">
-		number=#{number},
-	</if>
-	<if test="pay_type != null  ">
-		pay_type=#{pay_type},
-	</if>
-	<if test="delivery_type != null  ">
-		delivery_type=#{delivery_type},
-	</if>
-	<if test="delivery_addr != null  ">
-		delivery_addr=#{delivery_addr},
-	</if>
-	<if test="conditions != null  ">
-		conditions=#{conditions},
-	</if>
-	<if test="other_require != null  ">
-		other_require=#{other_require},
-	</if>
-	<if test="create_time != null  ">
-		create_time=#{create_time},
-	</if>
-	<if test="update_time != null  ">
-		update_time=#{update_time},
-	</if>
-	<if test="state != null  ">
-		state=#{state},
-	</if>
-	<if test="remark != null  ">
-		remark=#{remark},
-	</if>
-	<if test="user_id != null  ">
-		user_id=#{user_id},
-	</if>
-	<if test="product_id != null  ">
-		product_id=#{product_id},
-	</if>
-	</trim> where id=#{id}
-</update>
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="oil_type != null and oil_type != ''">
+                and oil_type = #{oil_type}
+            </if>
+            <if test="purchase_type != null and purchase_type != ''">
+                and purchase_type = #{purchase_type}
+            </if>
+            <if test="quality_standard != null and quality_standard != ''">
+                and quality_standard = #{quality_standard}
+            </if>
+            <if test="product_model != null and product_model != ''">
+                and product_model = #{product_model}
+            </if>
+            <if test="number != null and number != ''">
+                and number = #{number}
+            </if>
+            <if test="pay_type != null and pay_type != ''">
+                and pay_type = #{pay_type}
+            </if>
+            <if test="delivery_type != null and delivery_type != ''">
+                and delivery_type = #{delivery_type}
+            </if>
+            <if test="delivery_addr != null and delivery_addr != ''">
+                and delivery_addr = #{delivery_addr}
+            </if>
+            <if test="conditions != null and conditions != ''">
+                and conditions = #{conditions}
+            </if>
+            <if test="other_require != null and other_require != ''">
+                and other_require = #{other_require}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="user_id != null and user_id != ''">
+                and user_id = #{user_id}
+            </if>
+            <if test="product_id != null and product_id != ''">
+                and product_id = #{product_id}
+            </if>
+        </trim>
+    </sql>
 
-<!-- 删除记录 -->
-<delete id="delete" parameterType="Object">
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into
+        purchase(id,oil_type,purchase_type,quality_standard,product_model,number,pay_type,delivery_type,delivery_addr,conditions,other_require,create_time,update_time,state,remark,user_id,product_id)
+        values(#{id},#{oil_type},#{purchase_type},#{quality_standard},#{product_model},#{number},#{pay_type},#{delivery_type},#{delivery_addr},#{conditions},#{other_require},#{create_time},#{update_time},#{state},#{remark},#{user_id},#{product_id})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+        update purchase set
+        oil_type=#{oil_type},purchase_type=#{purchase_type},quality_standard=#{quality_standard},product_model=#{product_model},number=#{number},pay_type=#{pay_type},delivery_type=#{delivery_type},delivery_addr=#{delivery_addr},conditions=#{conditions},other_require=#{other_require},
+        <if test="state!= null">state =
+            #{state,jdbcType=TINYINT},</if>remark=#{remark},user_id=#{user_id},product_id=#{product_id} where id=#{id}
+    </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update purchase set
+        <trim suffixOverrides=",">
+            <if test="oil_type != null  ">
+                oil_type=#{oil_type},
+            </if>
+            <if test="purchase_type != null  ">
+                purchase_type=#{purchase_type},
+            </if>
+            <if test="quality_standard != null  ">
+                quality_standard=#{quality_standard},
+            </if>
+            <if test="product_model != null  ">
+                product_model=#{product_model},
+            </if>
+            <if test="number != null  ">
+                number=#{number},
+            </if>
+            <if test="pay_type != null  ">
+                pay_type=#{pay_type},
+            </if>
+            <if test="delivery_type != null  ">
+                delivery_type=#{delivery_type},
+            </if>
+            <if test="delivery_addr != null  ">
+                delivery_addr=#{delivery_addr},
+            </if>
+            <if test="conditions != null  ">
+                conditions=#{conditions},
+            </if>
+            <if test="other_require != null  ">
+                other_require=#{other_require},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+            <if test="user_id != null  ">
+                user_id=#{user_id},
+            </if>
+            <if test="product_id != null  ">
+                product_id=#{product_id},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
 	delete 	 from purchase where id = #{id}
 </delete>
- 
-<!-- 根据id查询 采购商管理 -->
-<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
-	select <include refid="Base_Column_List" /> 
-	 from purchase where id = #{id}
-</select>
 
-<!-- 采购商管理 列表总数-->
-<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
-	select count(1) from purchase 
-	<include refid="Example_Where_Clause"/>
-</select>
-  	
-<!-- 查询采购商管理列表 -->
-<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
-	select 
-	<include refid="Base_Column_List"/>
-	from purchase 
-	<include refid="Example_Where_Clause"/>
-	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
-      ${pager.orderCondition}
-    </if>
-    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
-       ${pager.mysqlQueryCondition}
-    </if>
-</select>
-  	
+    <!-- 根据id查询 采购商管理 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase where id = #{id}
+    </select>
+
+    <!-- 采购商管理 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from purchase
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询采购商管理列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase
+        <include refid="Example_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
 </mapper>   

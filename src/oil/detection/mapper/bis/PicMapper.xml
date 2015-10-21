@@ -77,8 +77,10 @@
 
     <!-- 根据id，修改记录-->
     <update id="update" parameterType="Object">
-  update pic set type=#{type},pic_url=#{pic_url},owner_id=#{owner_id},`order`=#{order},create_time=#{create_time},update_time=#{update_time},state=#{state},remark=#{remark},link_url=#{link_url},content=#{content} where id=#{id}
- </update>
+        update pic set type=#{type},pic_url=#{pic_url},owner_id=#{owner_id},`order`=#{order},
+        <if test="state!= null">state =
+            #{state,jdbcType=TINYINT},</if>remark=#{remark},link_url=#{link_url},content=#{content} where id=#{id}
+    </update>
 
     <!-- 修改记录，只修改只不为空的字段 -->
     <update id="updateBySelective" parameterType="Object">

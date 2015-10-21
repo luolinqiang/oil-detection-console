@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.base.web.BaseAction;
 import com.base.util.HtmlUtil;
-import com.base.entity.BaseEntity.DELETED;
 import oil.detection.entity.bis.Product;
 import oil.detection.page.bis.ProductPage;
 import oil.detection.service.bis.ProductService;

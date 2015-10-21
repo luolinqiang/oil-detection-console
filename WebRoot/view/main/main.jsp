@@ -39,7 +39,7 @@
 <!-- 中间内容页面 -->
 <div data-options="region:'center'">
     <div class="easyui-tabs" id="tab-box" data-options="fit:true,border:false">
-        <div title="Welcome" style="padding:20px;overflow:hidden;">
+        <div title="欢迎页" style="padding:20px;overflow:hidden;">
             <div style="margin-top:20px;">
                 <h3>欢迎使用找油后台管理系统</h3>
             </div>

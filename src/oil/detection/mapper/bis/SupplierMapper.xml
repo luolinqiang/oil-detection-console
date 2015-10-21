@@ -1,192 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="oil.detection.dao.bis.SupplierDao" > 
-<!-- Result Map-->
-<resultMap id="BaseResultMap" type="oil.detection.entity.bis.Supplier" >
-	<result column="id" property="id"/>
-	<result column="type" property="type"/>
-	<result column="company_name" property="company_name"/>
-	<result column="company_logo" property="company_logo"/>
-	<result column="contacts" property="contacts"/>
-	<result column="phone" property="phone"/>
-	<result column="area_id" property="area_id"/>
-	<result column="address" property="address"/>
-	<result column="operate_product" property="operate_product"/>
-	<result column="oil_name" property="oil_name"/>
-	<result column="oil_address" property="oil_address"/>
-	<result column="company_type" property="company_type"/>
-	<result column="company_desc" property="company_desc"/>
-	<result column="create_time" property="create_time"/>
-	<result column="update_time" property="update_time"/>
-	<result column="state" property="state"/>
-	<result column="remark" property="remark"/>
-</resultMap>
-       
-<!-- supplier table all fields -->
-<sql id="Base_Column_List" >
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.SupplierDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.Supplier">
+        <result column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="company_name" property="company_name"/>
+        <result column="company_logo" property="company_logo"/>
+        <result column="contacts" property="contacts"/>
+        <result column="phone" property="phone"/>
+        <result column="area_id" property="area_id"/>
+        <result column="address" property="address"/>
+        <result column="operate_product" property="operate_product"/>
+        <result column="oil_name" property="oil_name"/>
+        <result column="oil_address" property="oil_address"/>
+        <result column="company_type" property="company_type"/>
+        <result column="company_desc" property="company_desc"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- supplier table all fields -->
+    <sql id="Base_Column_List">
 	 id,type,company_name,company_logo,contacts,phone,area_id,address,operate_product,oil_name,oil_address,company_type,company_desc,create_time,update_time,state,remark
 </sql>
-   
-   
-<!-- 查询条件 -->
-<sql id="Example_Where_Clause">
-where 1=1
-<trim  suffixOverrides="," >
-	<if test="id != null and id != ''" >
-	    and id =  #{id}
-	</if>
-	<if test="type != null and type != ''" >
-	    and type =  #{type}
-	</if>
-	<if test="company_name != null and company_name != ''" >
-	    and company_name =  #{company_name}
-	</if>
-	<if test="company_logo != null and company_logo != ''" >
-	    and company_logo =  #{company_logo}
-	</if>
-	<if test="contacts != null and contacts != ''" >
-	    and contacts =  #{contacts}
-	</if>
-	<if test="phone != null and phone != ''" >
-	    and phone =  #{phone}
-	</if>
-	<if test="area_id != null and area_id != ''" >
-	    and area_id =  #{area_id}
-	</if>
-	<if test="address != null and address != ''" >
-	    and address =  #{address}
-	</if>
-	<if test="operate_product != null and operate_product != ''" >
-	    and operate_product =  #{operate_product}
-	</if>
-	<if test="oil_name != null and oil_name != ''" >
-	    and oil_name =  #{oil_name}
-	</if>
-	<if test="oil_address != null and oil_address != ''" >
-	    and oil_address =  #{oil_address}
-	</if>
-	<if test="company_type != null and company_type != ''" >
-	    and company_type =  #{company_type}
-	</if>
-	<if test="company_desc != null and company_desc != ''" >
-	    and company_desc =  #{company_desc}
-	</if>
-	<if test="create_time != null and create_time != ''" >
-	    and create_time =  #{create_time}
-	</if>
-	<if test="update_time != null and update_time != ''" >
-	    and update_time =  #{update_time}
-	</if>
-	<if test="state != null and state != ''" >
-	    and state =  #{state}
-	</if>
-	<if test="remark != null and remark != ''" >
-	    and remark =  #{remark}
-	</if>
-</trim>
-</sql>
-   
 
-<!-- 插入记录 -->
-<insert id="add" parameterType="Object" >
-<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-	SELECT LAST_INSERT_ID()
-  </selectKey>
-  insert into supplier(id,type,company_name,company_logo,contacts,phone,area_id,address,operate_product,oil_name,oil_address,company_type,company_desc,create_time,update_time,state,remark)
- values(#{id},#{type},#{company_name},#{company_logo},#{contacts},#{phone},#{area_id},#{address},#{operate_product},#{oil_name},#{oil_address},#{company_type},#{company_desc},#{create_time},#{update_time},#{state},#{remark})
-</insert>
 
-<!-- 根据id，修改记录-->  
- <update id="update" parameterType="Object" >
-  update supplier set type=#{type},company_name=#{company_name},company_logo=#{company_logo},contacts=#{contacts},phone=#{phone},area_id=#{area_id},address=#{address},operate_product=#{operate_product},oil_name=#{oil_name},oil_address=#{oil_address},company_type=#{company_type},company_desc=#{company_desc},create_time=#{create_time},update_time=#{update_time},state=#{state},remark=#{remark} where id=#{id}
- </update>
- 
- <!-- 修改记录，只修改只不为空的字段 -->
-<update id="updateBySelective" parameterType="Object" >
-	update supplier set 
-	<trim  suffixOverrides="," >
-	<if test="type != null  ">
-		type=#{type},
-	</if>
-	<if test="company_name != null  ">
-		company_name=#{company_name},
-	</if>
-	<if test="company_logo != null  ">
-		company_logo=#{company_logo},
-	</if>
-	<if test="contacts != null  ">
-		contacts=#{contacts},
-	</if>
-	<if test="phone != null  ">
-		phone=#{phone},
-	</if>
-	<if test="area_id != null  ">
-		area_id=#{area_id},
-	</if>
-	<if test="address != null  ">
-		address=#{address},
-	</if>
-	<if test="operate_product != null  ">
-		operate_product=#{operate_product},
-	</if>
-	<if test="oil_name != null  ">
-		oil_name=#{oil_name},
-	</if>
-	<if test="oil_address != null  ">
-		oil_address=#{oil_address},
-	</if>
-	<if test="company_type != null  ">
-		company_type=#{company_type},
-	</if>
-	<if test="company_desc != null  ">
-		company_desc=#{company_desc},
-	</if>
-	<if test="create_time != null  ">
-		create_time=#{create_time},
-	</if>
-	<if test="update_time != null  ">
-		update_time=#{update_time},
-	</if>
-	<if test="state != null  ">
-		state=#{state},
-	</if>
-	<if test="remark != null  ">
-		remark=#{remark},
-	</if>
-	</trim> where id=#{id}
-</update>
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="company_name != null and company_name != ''">
+                and company_name = #{company_name}
+            </if>
+            <if test="company_logo != null and company_logo != ''">
+                and company_logo = #{company_logo}
+            </if>
+            <if test="contacts != null and contacts != ''">
+                and contacts = #{contacts}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="area_id != null and area_id != ''">
+                and area_id = #{area_id}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="operate_product != null and operate_product != ''">
+                and operate_product = #{operate_product}
+            </if>
+            <if test="oil_name != null and oil_name != ''">
+                and oil_name = #{oil_name}
+            </if>
+            <if test="oil_address != null and oil_address != ''">
+                and oil_address = #{oil_address}
+            </if>
+            <if test="company_type != null and company_type != ''">
+                and company_type = #{company_type}
+            </if>
+            <if test="company_desc != null and company_desc != ''">
+                and company_desc = #{company_desc}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </trim>
+    </sql>
 
-<!-- 删除记录 -->
-<delete id="delete" parameterType="Object">
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into
+        supplier(id,type,company_name,company_logo,contacts,phone,area_id,address,operate_product,oil_name,oil_address,company_type,company_desc,create_time,update_time,state,remark)
+        values(#{id},#{type},#{company_name},#{company_logo},#{contacts},#{phone},#{area_id},#{address},#{operate_product},#{oil_name},#{oil_address},#{company_type},#{company_desc},#{create_time},#{update_time},#{state},#{remark})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+        update supplier set
+        type=#{type},company_name=#{company_name},company_logo=#{company_logo},contacts=#{contacts},phone=#{phone},area_id=#{area_id},address=#{address},operate_product=#{operate_product},oil_name=#{oil_name},oil_address=#{oil_address},company_type=#{company_type},company_desc=#{company_desc},
+        <if test="state!= null">state = #{state,jdbcType=TINYINT},</if>remark=#{remark} where id=#{id}
+    </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update supplier set
+        <trim suffixOverrides=",">
+            <if test="type != null  ">
+                type=#{type},
+            </if>
+            <if test="company_name != null  ">
+                company_name=#{company_name},
+            </if>
+            <if test="company_logo != null  ">
+                company_logo=#{company_logo},
+            </if>
+            <if test="contacts != null  ">
+                contacts=#{contacts},
+            </if>
+            <if test="phone != null  ">
+                phone=#{phone},
+            </if>
+            <if test="area_id != null  ">
+                area_id=#{area_id},
+            </if>
+            <if test="address != null  ">
+                address=#{address},
+            </if>
+            <if test="operate_product != null  ">
+                operate_product=#{operate_product},
+            </if>
+            <if test="oil_name != null  ">
+                oil_name=#{oil_name},
+            </if>
+            <if test="oil_address != null  ">
+                oil_address=#{oil_address},
+            </if>
+            <if test="company_type != null  ">
+                company_type=#{company_type},
+            </if>
+            <if test="company_desc != null  ">
+                company_desc=#{company_desc},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
 	delete 	 from supplier where id = #{id}
 </delete>
- 
-<!-- 根据id查询 供应商审核 -->
-<select id="queryById"  resultMap="BaseResultMap" parameterType="Object">
-	select <include refid="Base_Column_List" /> 
-	 from supplier where id = #{id}
-</select>
 
-<!-- 供应商审核 列表总数-->
-<select id="queryByCount" resultType="java.lang.Integer"  parameterType="Object">
-	select count(1) from supplier 
-	<include refid="Example_Where_Clause"/>
-</select>
-  	
-<!-- 查询供应商审核列表 -->
-<select id="queryByList" resultMap="BaseResultMap"  parameterType="Object">
-	select 
-	<include refid="Base_Column_List"/>
-	from supplier 
-	<include refid="Example_Where_Clause"/>
-	<if test="pager.orderCondition != null and pager.orderCondition != ''" >
-      ${pager.orderCondition}
-    </if>
-    <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''" >
-       ${pager.mysqlQueryCondition}
-    </if>
-</select>
-  	
+    <!-- 根据id查询 供应商管理 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from supplier where id = #{id}
+    </select>
+
+    <!-- 供应商管理 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from supplier
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询供应商管理列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from supplier
+        <include refid="Example_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
 </mapper>   

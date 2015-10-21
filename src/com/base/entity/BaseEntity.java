@@ -16,9 +16,9 @@ public class BaseEntity {
             this.value = value;
         }
 
-        public static STATE_COMMON get(int key) {
-            STATE_COMMON[] values = STATE_COMMON.values();
-            for (STATE_COMMON object : values) {
+        public static TYPE_COMMON get(int key) {
+            TYPE_COMMON[] values = TYPE_COMMON.values();
+            for (TYPE_COMMON object : values) {
                 if (object.key == key) {
                     return object;
                 }
@@ -106,6 +106,27 @@ public class BaseEntity {
         public static STATE_COMMON get(int key) {
             STATE_COMMON[] values = STATE_COMMON.values();
             for (STATE_COMMON object : values) {
+                if (object.key == key) {
+                    return object;
+                }
+            }
+            return null;
+        }
+    }
+
+    public static enum TYPE_COMMON {
+        ONE(1, "非自营"), TWO(2, "直营");
+        public int key;
+        public String value;
+
+        private TYPE_COMMON(int key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public static TYPE_COMMON get(int key) {
+            TYPE_COMMON[] values = TYPE_COMMON.values();
+            for (TYPE_COMMON object : values) {
                 if (object.key == key) {
                     return object;
                 }

@@ -1,13 +1,13 @@
 package oil.detection.controller.bis;
 
 import com.base.entity.BaseEntity;
-import com.base.page.BasePage;
 import com.base.util.HtmlUtil;
 import com.base.web.BaseAction;
 import com.jeecg.exception.ServiceException;
 import oil.detection.entity.bis.HomeSetting;
 import oil.detection.entity.bis.Pic;
 import oil.detection.page.bis.HomeSettingPage;
+import oil.detection.page.bis.SupplierPage;
 import oil.detection.service.bis.HomeSettingService;
 import oil.detection.service.bis.PicService;
 import org.apache.commons.lang.StringUtils;
@@ -51,6 +51,18 @@ public class HomeSettingController extends BaseAction {
         return forword("oil/detection/bis/homeSetting", context);
     }
 
+    /**
+     * @param url
+     * @param classifyId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/listSupplier")
+    public ModelAndView listSupplier(SupplierPage page, HttpServletRequest request) throws Exception {
+        Map<String, Object> context = getRootMap();
+        return forword("oil/detection/bis/homeSupplier", context);
+    }
+
 
     /**
      * ilook 首页
@@ -79,8 +91,8 @@ public class HomeSettingController extends BaseAction {
      * @throws Exception
      */
     @RequestMapping("/bannerSave")
-    public void save(HttpServletRequest request, HomeSetting entity, Integer[] typeIds, HttpServletResponse response) throws Exception {
-        if (checkNum(response)) return;
+    public void bannerSave(HttpServletRequest request, HomeSetting entity, Integer[] typeIds, HttpServletResponse response) throws Exception {
+        if (checkNum(response,1,6)) return;
 
         Map<String, Object> context = new HashMap<String, Object>();
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -100,6 +112,7 @@ public class HomeSettingController extends BaseAction {
         entity.setType(BaseEntity.HOME_TYPE.BANNER.key);
         entity.setCreate_time(new Date());
         entity.setState(BaseEntity.STATE_COMMON.SAVE.key);
+        entity.setState(BaseEntity.STATE_COMMON.SAVE.key);
         if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
             homeSettingService.add(entity);
         } else {
@@ -108,10 +121,35 @@ public class HomeSettingController extends BaseAction {
         sendSuccessMessage(response, "保存成功~");
     }
 
-    private boolean checkNum(HttpServletResponse response) throws Exception {
+    /**
+     * 添加或修改数据
+     *
+     * @param url
+     * @param classifyId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/supplierSave")
+    public void supplierSave(HttpServletRequest request, HomeSetting entity, Integer[] typeIds, HttpServletResponse response) throws Exception {
+        if (checkNum(response,2,4)) return;
+
+        entity.setType(BaseEntity.HOME_TYPE.DIRECTSALE.key);
+        entity.setCreate_time(new Date());
+        entity.setState(BaseEntity.STATE_COMMON.SAVE.key);
+        entity.setState(BaseEntity.STATE_COMMON.SAVE.key);
+        if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
+            homeSettingService.add(entity);
+        } else {
+            homeSettingService.update(entity);
+        }
+        sendSuccessMessage(response, "保存成功~");
+    }
+
+    private boolean checkNum(HttpServletResponse response,int type,int max) throws Exception {
         HomeSettingPage page = new HomeSettingPage();
+        page.setType(type);
         int count = homeSettingService.queryByCount(page);
-        if (count > 6) {
+        if (count > max) {
             throw new ServiceException("最多只能上传6张图片.");
         }
         return false;

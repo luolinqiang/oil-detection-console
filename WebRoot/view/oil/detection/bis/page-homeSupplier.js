@@ -4,7 +4,7 @@ jeecg.homeSetting = function () {
     var _this = {
         config: {
             action: {
-                save: "bannerSave.do"
+                save: "supplierSave.do"
             },
             event: {
                 add: function () {
@@ -18,13 +18,13 @@ jeecg.homeSetting = function () {
             },
             dataGrid: {
                 title: '首页设置',
-                url: 'dataList.do?type=1',
+                url: 'dataList.do?type=2',
                 columns: [[
                     {field: 'id', checkbox: true},
                     {
                         field: 'target_id', title: '目标id', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return '<img src="/pic/show/' + row.target_id + '.do" style="width: 50px;height: 50px;" alt="">';
+                            return value;
                         }
                     },
                     {
@@ -61,6 +61,12 @@ jeecg.homeSetting = function () {
             }
         },
         init: function () {
+            $("#target_id").combobox({
+                url: '/supplier/dataJson.do?type=2',
+                valueField: 'id',
+                textField: 'company_name'
+            });
+
             _box = new YDataGrid(_this.config);
             _box.init();
         }
