@@ -88,7 +88,7 @@ public class PurchaseController extends BaseAction {
             entity.setState(BaseEntity.STATE_COMMON.SAVE.key);
             purchaseService.add(entity);
         } else {
-            purchaseService.update(entity);
+            purchaseService.updateBySelective(entity);
         }
         sendSuccessMessage(response, "保存成功~");
     }

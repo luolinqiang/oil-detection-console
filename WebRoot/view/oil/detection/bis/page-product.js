@@ -19,6 +19,12 @@ jeecg.product = function () {
                 columns: [[
                     {field: 'id', checkbox: true},
                     {
+                        field: 'supplier_name', title: '供应商', align: 'center', sortable: true,
+                        formatter: function (value, row, index) {
+                            return value;
+                        }
+                    },
+                    {
                         field: 'type', title: '产品类型', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             if (value == 1) {

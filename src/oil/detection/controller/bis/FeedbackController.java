@@ -77,7 +77,7 @@ public class FeedbackController extends BaseAction {
         if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
             feedbackService.add(entity);
         } else {
-            feedbackService.update(entity);
+            feedbackService.updateBySelective(entity);
         }
         sendSuccessMessage(response, "保存成功~");
     }

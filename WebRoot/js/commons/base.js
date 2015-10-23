@@ -92,15 +92,26 @@ var jeecg = {
             error: function (response, textStatus, errorThrown) {
                 try {
                     jeecg.closeProgress();
-                    var data = $.parseJSON(response.responseText);
+                    var respText = response.responseText;
+                    if (respText.charAt(0) != "{" && respText.charAt(0) != "[") {
+                        respText = respText.substring(respText.indexOf("{"), respText.length);
+                        respText = respText.substring(0, respText.lastIndexOf("}") + 1);
+                    }
+                    var data = $.parseJSON(respText);
                     //检查登录
                     if (!jeecg.checkLogin(data)) {
                         return false;
                     } else {
+                        if (data.msg == "保存成功~") {
+                            if ($.isFunction(callback)) {
+                                callback(data);
+                                return;
+                            }
+                        }
                         jeecg.alert('提示', data.msg || "请求出现异常,请联系管理员", 'error');
                     }
                 } catch (e) {
-                    //jeecg.alert('提示',"请求出现异常,请联系管理员.",'error');
+                    jeecg.alert('提示', "请求出现异常,请联系管理员.", 'error');
                 }
             },
             complete: function () {
@@ -199,7 +210,7 @@ $.extend($.fn.datagrid.methods, {
                 } else {
                     var btn = $("<a href=\"javascript:void(0)\"></a>");
                     btn[0].onclick = eval(item.handler || function () {
-                    });
+                        });
                     btn.css("float", "left").appendTo(toolbar).linkbutton($.extend({}, item, {plain: true}));
                 }
             }

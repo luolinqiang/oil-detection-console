@@ -10,6 +10,11 @@
      data-options="striped: true,collapsible:false,iconCls:'icon-search',border:false">
     <form id="searchForm">
         <p class="ui-fields">
+            <label class="ui-label">审核状态:</label>
+            <select class="easyui-combobox" name="state" data-options="required:true">
+                <option value="1" selected="selected">待审核</option>
+                <option value="2">审核通过</option>
+            </select>
             <label class="ui-label">油类型:</label>
             <select class="easyui-combobox" name="oil_type" data-options="required:true">
                 <option value="1" selected="selected">柴油</option>
@@ -114,6 +119,11 @@
             </div>
         </div>
     </form>
+</div>
+
+<!-- Edit Win&Form -->
+<div id="audit-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
+     style="width:400px;height:400px;">
 </div>
 <script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-purchase.js"></script>
 </body>

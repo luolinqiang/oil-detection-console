@@ -45,7 +45,7 @@ public class PicController extends BaseAction {
         if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
             picService.add(entity);
         } else {
-            picService.update(entity);
+            picService.updateBySelective(entity);
         }
         sendSuccessMessage(response, "保存成功~");
     }

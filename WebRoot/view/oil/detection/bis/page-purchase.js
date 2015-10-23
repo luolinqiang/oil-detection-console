@@ -103,7 +103,7 @@ jeecg.purchase = function () {
                         }
                     },
                     {
-                        field: 'state', title: '状态(0：删除 1：审核中 2：审核通过)', align: 'center', sortable: true,
+                        field: 'state', title: '状态', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             if (value == 1) {
                                 return "待审核";
@@ -126,7 +126,75 @@ jeecg.purchase = function () {
                     //        return row.product_id;
                     //    }
                     //},
-                ]]
+                ]],
+                toolbar: [
+                    {
+                        id: 'btnadd',
+                        text: '添加',
+                        iconCls: 'icon-add',
+                        btnType: 'add',
+                    },
+                    {
+                        id: 'btnedit',
+                        text: '修改',
+                        iconCls: 'icon-edit',
+                        btnType: 'edit',
+                    },
+                    {
+                        id: 'btnremove',
+                        text: '删除',
+                        iconCls: 'icon-remove',
+                        btnType: 'remove',
+                    },
+                    {
+                        id: 'btnauditok',
+                        text: '审核通过',
+                        iconCls: 'icon-ok',
+                        btnType: 'audit',
+                        handler: function () {
+                            $("#audit-win").dialog({
+                                title: '发货操作',
+                                href: '/supplier/list.shtml',
+                                iconCls: 'icon-edit',
+                                modal: true,
+                                closed: true
+                            });
+                            $("#audit-win").dialog("open");
+                            //var record = _box.utils.getCheckedRows();
+                            //if (!_box.utils.checkSelectOne(record)) {
+                            //    return;
+                            //}
+                            //jeecg.ajaxJson("/purchase/save.do?id=" + record[0].id + "&state=2", [], function (data) {
+                            //    if (data.success) {
+                            //        _box.handler.refresh();
+                            //        jeecg.alert('提示', "操作成功");
+                            //    } else {
+                            //        jeecg.alert('提示', "操作失败");
+                            //    }
+                            //});
+                        }
+                    },
+                    {
+                        id: 'btnauditno',
+                        text: '审核不通过',
+                        iconCls: 'icon-no',
+                        btnType: 'audit',
+                        handler: function () {
+                            var record = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(record)) {
+                                return;
+                            }
+                            jeecg.ajaxJson("/purchase/save.do?id=" + record[0].id + "&state=1", [], function (data) {
+                                if (data.success) {
+                                    _box.handler.refresh();
+                                    jeecg.alert('提示', "操作成功");
+                                } else {
+                                    jeecg.alert('提示', "操作失败");
+                                }
+                            });
+                        }
+                    },
+                ]
             }
         },
         init: function () {
@@ -156,8 +224,9 @@ jeecg.purchase = function () {
 
             _box = new YDataGrid(_this.config);
             _box.init();
+            $("#btn-search").trigger("click");
         }
-    }
+    };
     return _this;
 }();
 

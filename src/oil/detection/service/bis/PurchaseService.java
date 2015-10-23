@@ -13,17 +13,15 @@ import oil.detection.dao.bis.PurchaseDao;
  */
 @Service("purchaseService")
 public class PurchaseService<T> extends BaseService<T> {
-	private final static Logger log= Logger.getLogger(PurchaseService.class);
-	
+    private final static Logger log = Logger.getLogger(PurchaseService.class);
 
-	
 
-	@Autowired
+    @Autowired
     private PurchaseDao<T> dao;
 
-		
-	public PurchaseDao<T> getDao() {
-		return dao;
-	}
+
+    public PurchaseDao<T> getDao() {
+        return dao;
+    }
 
 }

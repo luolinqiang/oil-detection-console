@@ -4,7 +4,7 @@ jeecg.homeSetting = function () {
     var _this = {
         config: {
             action: {
-                save: "supplierSave.do"
+                save: "customSave.do"
             },
             event: {
                 add: function () {
@@ -18,11 +18,11 @@ jeecg.homeSetting = function () {
             },
             dataGrid: {
                 title: '首页设置',
-                url: 'dataList.do?type=2',
+                url: 'dataList.do?type=4',
                 columns: [[
                     {field: 'id', checkbox: true},
                     {
-                        field: 'supplier_name', title: '直营商家', align: 'center', sortable: true,
+                        field: 'remark', title: '自定义设置json格式', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             return value;
                         }
@@ -57,8 +57,7 @@ jeecg.homeSetting = function () {
                             return row.state;
                         }
                     },
-                ]],
-                toolbar: [
+                ]], toolbar: [
                     {
                         id: 'btnadd',
                         text: '添加',
@@ -121,12 +120,6 @@ jeecg.homeSetting = function () {
             }
         },
         init: function () {
-            $("#target_id").combobox({
-                url: '/supplier/dataJson.do?type=2',
-                valueField: 'id',
-                textField: 'company_name'
-            });
-
             _box = new YDataGrid(_this.config);
             _box.init();
         }

@@ -52,7 +52,7 @@ public class BaseEntity {
     }
 
     public static enum PIC_TYPE {
-        BANNER(1, "banner"), PRODUCT(2, "商品");
+        BANNER(1, "banner"), PRODUCT(2, "商品"), SUPPLIER(3, "供应商");
         public int key;
         public String value;
 
@@ -115,7 +115,7 @@ public class BaseEntity {
     }
 
     public static enum TYPE_COMMON {
-        ONE(1, "非自营"), TWO(2, "直营");
+        ONE(1, "非自营"), TWO(2, "直营"), THREE(3, "THREE"), FORE(4, "FORE");
         public int key;
         public String value;
 

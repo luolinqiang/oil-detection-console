@@ -10,11 +10,6 @@
      data-options="striped: true,collapsible:false,iconCls:'icon-search',border:false">
     <form id="searchForm">
         <p class="ui-fields">
-            <label class="ui-label">审核状态:</label>
-            <select class="easyui-combobox" name="state" data-options="required:true">
-                <option value="1" selected="selected">待审核</option>
-                <option value="2">审核通过</option>
-            </select>
             <label class="ui-label">类型:</label>
             <select class="easyui-combobox" name="type" data-options="">
                 <option value="" selected="selected"></option>
@@ -23,6 +18,11 @@
             </select>
             <label class="ui-label">公司名:</label><input name="company_name" class="easyui-box ui-text"
                                                        style="width:100px;">
+            <label class="ui-label">审核状态:</label>
+            <select class="easyui-combobox" name="state" data-options="required:true">
+                <option value="1" selected="selected">待审核</option>
+                <option value="2">审核通过</option>
+            </select>
         </p>
         <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">查询</a>
     </form>
@@ -37,7 +37,7 @@
 <!-- Edit Win&Form -->
 <div id="edit-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
      style="width:400px;height:380px;">
-    <form id="editForm" class="ui-form" method="post">
+    <form id="editForm" class="ui-form" method="post" enctype="multipart/form-data">
         <input class="hidden" name="id">
 
         <div class="ui-edit">
@@ -51,7 +51,7 @@
                 <label>企业logo</label>
                 <%--<input name="company_logo" type="text" maxlength="255" class="easyui-validatebox" data-options=""--%>
                 <%--missingMessage="请填写企业logo">--%>
-                <input name="company_logo" type="file" maxlength="" class="easyui-validatebox" data-options=""
+                <input name="file" type="file" maxlength="" class="easyui-validatebox" data-options=""
                        missingMessage="请填写企业logo">
             </div>
             <div class="fitem">
@@ -103,6 +103,6 @@
         </div>
     </form>
 </div>
-<script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-supplier.js"></script>
+<script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-supplierDirect.js"></script>
 </body>
 </html>

@@ -33,15 +33,15 @@
 <!-- Edit Win&Form -->
 <div id="edit-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
      style="width:400px;height:380px;">
-    <form id="editForm" class="ui-form" method="post" enctype="multipart/form-data">
+    <form id="editForm" class="ui-form" method="post">
         <input class="hidden" name="id">
 
         <div class="ui-edit">
             <div class="ftitle">首页设置</div>
             <div class="fitem">
-                <label>文件</label>
-                <input name="file" type="file" maxlength="" class="easyui-validatebox" data-options=""
-                       missingMessage="请选择文件">
+                <label>自定义设置json格式</label>
+                <input name="remark" type="text" maxlength="" class="easyui-validatebox" data-options=""
+                       missingMessage="自定义设置json格式">
             </div>
             <div class="fitem">
                 <label>排序</label>
@@ -51,6 +51,6 @@
         </div>
     </form>
 </div>
-<script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-homeSetting.js"></script>
+<script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-homeCustom.js"></script>
 </body>
 </html>

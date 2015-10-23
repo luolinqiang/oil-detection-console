@@ -33,7 +33,7 @@
 <!-- Edit Win&Form -->
 <div id="edit-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
      style="width:400px;height:380px;">
-    <form id="editForm" class="ui-form" method="post" enctype="multipart/form-data">
+    <form id="editForm" class="ui-form" method="post">
         <input class="hidden" name="id">
 
         <div class="ui-edit">
@@ -46,7 +46,7 @@
             </div>
             <div class="fitem">
                 <label>排序</label>
-                <input name="sort_desc" type="text" maxlength="" class="easyui-validatebox" data-options=""
+                <input name="sort_desc" type="text" maxlength="" class="easyui-numberbox" data-options="required:true"
                        missingMessage="请填写排序">
             </div>
         </div>

@@ -79,7 +79,7 @@ public class DiscoveryCarController extends BaseAction{
 		if(entity.getId()==null||StringUtils.isBlank(entity.getId().toString())){
 			discoveryCarService.add(entity);
 		}else{
-			discoveryCarService.update(entity);
+			discoveryCarService.updateBySelective(entity);
 		}
 		sendSuccessMessage(response, "保存成功~");
 	}

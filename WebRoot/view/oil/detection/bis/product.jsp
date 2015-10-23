@@ -16,6 +16,11 @@
                 <option value="2">汽油</option>
             </select>
             <label class="ui-label">库存:</label><input name="inventory" class="easyui-box ui-text" style="width:100px;">
+            <label class="ui-label">审核状态:</label>
+            <select class="easyui-combobox" name="state" data-options="required:true">
+                <option value="1" selected="selected">待审核</option>
+                <option value="2">审核通过</option>
+            </select>
         </p>
         <a href="#" id="btn-search" class="easyui-linkbutton" iconCls="icon-search">查询</a>
     </form>

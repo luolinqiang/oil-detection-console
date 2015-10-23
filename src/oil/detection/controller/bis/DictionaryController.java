@@ -100,7 +100,7 @@ public class DictionaryController extends BaseAction {
         if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
             dictionaryService.add(entity);
         } else {
-            dictionaryService.update(entity);
+            dictionaryService.updateBySelective(entity);
         }
         sendSuccessMessage(response, "保存成功~");
     }

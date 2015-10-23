@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.base.entity.BaseEntity;
+import oil.detection.entity.bis.HomeSetting;
+import oil.detection.entity.bis.Supplier;
+import oil.detection.service.bis.SupplierService;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import org.apache.log4j.Logger;
+import org.apache.xpath.axes.OneStepIteratorForward;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +41,8 @@ public class ProductController extends BaseAction {
     // Servrice start
     @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
     private ProductService<Product> productService;
+    @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
+    private SupplierService<Supplier> supplierService;
 
 
     /**
@@ -63,6 +69,12 @@ public class ProductController extends BaseAction {
     @RequestMapping("/dataList")
     public void datalist(ProductPage page, HttpServletResponse response) throws Exception {
         List<Product> dataList = productService.queryByList(page);
+        for (Product product : dataList) {
+            Supplier supplier = supplierService.queryById(product.getSupplier_id());
+            if (supplier != null) {
+                product.setSupplier_name(supplier.getCompany_name());
+            }
+        }
         //设置页面数据
         Map<String, Object> jsonMap = new HashMap<String, Object>();
         jsonMap.put("total", page.getPager().getRowCount());
@@ -86,7 +98,7 @@ public class ProductController extends BaseAction {
             entity.setState(BaseEntity.STATE_COMMON.SAVE.key);
             productService.add(entity);
         } else {
-            productService.update(entity);
+            productService.updateBySelective(entity);
         }
         sendSuccessMessage(response, "保存成功~");
     }

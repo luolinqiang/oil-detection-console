@@ -57,7 +57,67 @@ jeecg.homeSetting = function () {
                             return row.state;
                         }
                     },
-                ]]
+                ]],
+                toolbar: [
+                    {
+                        id: 'btnadd',
+                        text: '添加',
+                        iconCls: 'icon-add',
+                        btnType: 'add',
+                    },
+                    {
+                        id: 'btnedit',
+                        text: '修改',
+                        iconCls: 'icon-edit',
+                        btnType: 'edit',
+                    },
+                    {
+                        id: 'btnremove',
+                        text: '删除',
+                        iconCls: 'icon-remove',
+                        btnType: 'remove',
+                    },
+                    {
+                        id: 'btnauditok',
+                        text: '暂存',
+                        iconCls: 'icon-no',
+                        btnType: 'audit',
+                        handler: function () {
+                            var record = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(record)) {
+                                return;
+                            }
+                            jeecg.ajaxJson("/homeSetting/save.do?id=" + record[0].id + "&state=1", [], function (data) {
+                                if (data.success) {
+                                    _box.handler.refresh();
+                                    jeecg.alert('提示', "操作成功");
+                                } else {
+                                    jeecg.alert('提示', "操作失败");
+                                }
+                            });
+                        }
+                    },
+                    {
+                        id: 'btnauditno',
+                        text: '发布',
+                        iconCls: 'icon-ok',
+                        btnType: 'audit',
+                        handler: function () {
+                            var record = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(record)) {
+                                return;
+                            }
+                            jeecg.ajaxJson("/homeSetting/save.do?id=" + record[0].id + "&state=2", [], function (data) {
+                                if (data.success) {
+                                    _box.handler.refresh();
+                                    jeecg.alert('提示', "操作成功");
+                                } else {
+                                    jeecg.alert('提示', "操作失败");
+                                }
+                            });
+                        }
+                    },
+                ]
             }
         },
         init: function () {

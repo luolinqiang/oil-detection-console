@@ -39,7 +39,8 @@ jeecg.supplier = function () {
                     {
                         field: 'company_logo', title: '企业logo', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            return row.company_logo;
+                            return '<img src="/pic/show/' + row.company_logo + '.do" style="width: 50px;height: 50px;" alt="">';
+                            //return row.company_logo;
                         }
                     },
                     {
@@ -123,6 +124,24 @@ jeecg.supplier = function () {
                 ]],
                 toolbar: [
                     {
+                        id: 'btnadd',
+                        text: '添加',
+                        iconCls: 'icon-add',
+                        btnType: 'add',
+                    },
+                    {
+                        id: 'btnedit',
+                        text: '修改',
+                        iconCls: 'icon-edit',
+                        btnType: 'edit',
+                    },
+                    {
+                        id: 'btnremove',
+                        text: '删除',
+                        iconCls: 'icon-remove',
+                        btnType: 'remove',
+                    },
+                    {
                         id: 'btnauditok',
                         text: '审核通过',
                         iconCls: 'icon-ok',
@@ -174,7 +193,6 @@ jeecg.supplier = function () {
 
             _box = new YDataGrid(_this.config);
             _box.init();
-            $("#btn-search").trigger("click");
         }
     }
     return _this;
