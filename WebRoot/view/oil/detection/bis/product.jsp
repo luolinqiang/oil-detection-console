@@ -123,6 +123,13 @@
                 <input name="sulphur_content" type="text" maxlength="" class="easyui-numberbox"
                        data-options="precision:2,groupSeparator:','" missingMessage="请填写硫含量">
             </div>
+            <div class="fitem">
+                <label>供应商</label>
+                <input id="supplier_id" class="hidden" name="supplier_id">
+                <input id="supplier_name" name="supplier_name" type="text" maxlength="" class="easyui-validatebox"
+                       data-options="precision:2,groupSeparator:','" missingMessage="请填写供应商">
+                <a href="#" id="supplier-select-btn" class="easyui-linkbutton" iconCls="icon-search">选择</a>
+            </div>
             <%--<div class="fitem">--%>
             <%--<label>供应商id</label>--%>
             <%--<input name="supplier_id" type="text" maxlength="" class="easyui-validatebox" data-options=""--%>
@@ -130,6 +137,11 @@
             <%--</div>--%>
         </div>
     </form>
+</div>
+
+<!-- Edit Win&Form -->
+<div id="supplier-select-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
+     style="width:800px;height:380px;">
 </div>
 <script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-product.js"></script>
 </body>

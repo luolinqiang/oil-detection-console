@@ -36,7 +36,7 @@
 
 <!-- Edit Win&Form -->
 <div id="edit-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
-     style="width:400px;height:380px;">
+     style="width:450px;height:380px;">
     <form id="editForm" class="ui-form" method="post" enctype="multipart/form-data">
         <input class="hidden" name="id">
 

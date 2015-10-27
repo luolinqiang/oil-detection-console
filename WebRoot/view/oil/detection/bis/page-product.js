@@ -144,7 +144,67 @@ jeecg.product = function () {
                             return row.state;
                         }
                     },
-                ]]
+                ]],
+                toolbar: [
+                    {
+                        id: 'btnadd',
+                        text: '添加',
+                        iconCls: 'icon-add',
+                        btnType: 'add',
+                    },
+                    {
+                        id: 'btnedit',
+                        text: '修改',
+                        iconCls: 'icon-edit',
+                        btnType: 'edit',
+                    },
+                    {
+                        id: 'btnremove',
+                        text: '删除',
+                        iconCls: 'icon-remove',
+                        btnType: 'remove',
+                    },
+                    {
+                        id: 'btnauditok',
+                        text: '审核通过',
+                        iconCls: 'icon-ok',
+                        btnType: 'audit',
+                        handler: function () {
+                            var record = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(record)) {
+                                return;
+                            }
+                            jeecg.ajaxJson("/product/save.do?id=" + record[0].id + "&state=2", [], function (data) {
+                                if (data.success) {
+                                    _box.handler.refresh();
+                                    jeecg.alert('提示', "操作成功");
+                                } else {
+                                    jeecg.alert('提示', "操作失败");
+                                }
+                            });
+                        }
+                    },
+                    {
+                        id: 'btnauditno',
+                        text: '审核不通过',
+                        iconCls: 'icon-no',
+                        btnType: 'audit',
+                        handler: function () {
+                            var record = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(record)) {
+                                return;
+                            }
+                            jeecg.ajaxJson("/product/save.do?id=" + record[0].id + "&state=1", [], function (data) {
+                                if (data.success) {
+                                    _box.handler.refresh();
+                                    jeecg.alert('提示', "操作成功");
+                                } else {
+                                    jeecg.alert('提示', "操作失败");
+                                }
+                            });
+                        }
+                    },
+                ]
             }
         },
         init: function () {
@@ -166,12 +226,69 @@ jeecg.product = function () {
                 textField: 'name'
             });
 
+            $("#supplier-select-btn").click(function () {
+                $("#supplier-select-win").dialog({
+                    title: '选择供应商',
+                    href: '/supplier/listSelect.shtml',
+                    iconCls: 'icon-edit',
+                    modal: true,
+                    closed: true,
+                    buttons: [
+                        {
+                            text: '选择',
+                            handler: function () {
+                                var record = Utils.getCheckedRows();
+                                if (!Utils.checkSelectOne(record)) {
+                                    return;
+                                }
+                                $("#supplier_id").val(record[0].id);
+                                $("#supplier_name").val(record[0].company_name);
+                                $("#supplier-select-win").dialog('close');
+                            }
+                        }, {
+                            text: '关闭',
+                            handler: function () {
+                                $("#supplier-select-win").dialog('close');
+                            }
+                        }
+                    ]
+                });
+                $("#supplier-select-win").dialog("open");
+            });
+
             _box = new YDataGrid(_this.config);
             _box.init();
         }
     }
     return _this;
 }();
+
+//Grid 工具类
+var Utils = {
+    getCheckedRows: function () {
+        return $("#supplier-supplier-dialog").datagrid('getChecked');
+    },
+    checkSelect: function (rows) {//检查grid是否有勾选的行, 有返回 true,没有返回true
+        var records = rows;
+        if (records && records.length > 0) {
+            return true;
+        }
+        jeecg.alert('警告', '未选中记录.', 'warning');
+        return false;
+
+    },
+    checkSelectOne: function (rows) {//检查grid是否只勾选了一行,是返回 true,否返回true
+        var records = rows;
+        if (!Utils.checkSelect(records)) {
+            return false;
+        }
+        if (records.length == 1) {
+            return true;
+        }
+        jeecg.alert('警告', '只能选择一行记录.', 'warning');
+        return false;
+    }
+}
 
 $(function () {
     jeecg.product.init();

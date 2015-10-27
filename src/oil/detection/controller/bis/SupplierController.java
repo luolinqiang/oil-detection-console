@@ -57,6 +57,18 @@ public class SupplierController extends BaseAction {
      * @return
      * @throws Exception
      */
+    @RequestMapping("/listSelect")
+    public ModelAndView listSelect(SupplierPage page, HttpServletRequest request) throws Exception {
+        Map<String, Object> context = getRootMap();
+        return forword("oil/detection/bis/supplier-select", context);
+    }
+
+    /**
+     * @param url
+     * @param classifyId
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/listDirect")
     public ModelAndView listDirect(SupplierPage page, HttpServletRequest request) throws Exception {
         Map<String, Object> context = getRootMap();
