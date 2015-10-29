@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.base.common.DictionaryUtil;
+import oil.detection.entity.bis.Purchase;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +64,10 @@ public class OrderController extends BaseAction {
     @RequestMapping("/dataList")
     public void datalist(OrderPage page, HttpServletResponse response) throws Exception {
         List<Order> dataList = orderService.queryByList(page);
+        for (Order order : dataList) {
+            order.setPay_type_desc(DictionaryUtil.dictionaryMap.get(order.getPay_type()));
+            order.setDelivery_type_desc(DictionaryUtil.dictionaryMap.get(order.getDelivery_type()));
+        }
         //设置页面数据
         Map<String, Object> jsonMap = new HashMap<String, Object>();
         jsonMap.put("total", page.getPager().getRowCount());

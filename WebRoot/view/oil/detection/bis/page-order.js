@@ -67,13 +67,13 @@ jeecg.order = function () {
                         }
                     },
                     {
-                        field: 'pay_type', title: '付款方式', align: 'center', sortable: true,
+                        field: 'pay_type_desc', title: '付款方式', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             return row.pay_type;
                         }
                     },
                     {
-                        field: 'delivery_type', title: '提货方式', align: 'center', sortable: true,
+                        field: 'delivery_type_desc', title: '提货方式', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             return row.delivery_type;
                         }
