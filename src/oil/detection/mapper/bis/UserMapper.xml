@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.UserDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.User">
+        <result column="id" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="user_type" property="user_type"/>
+        <result column="nickname" property="nickname"/>
+        <result column="real_name" property="real_name"/>
+        <result column="company_name" property="company_name"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="head_portrait" property="head_portrait"/>
+        <result column="sex" property="sex"/>
+        <result column="device" property="device"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="state" property="state"/>
+        <result column="remark" property="remark"/>
+        <result column="supplier_id" property="supplier_id"/>
+    </resultMap>
+
+    <!-- user table all fields -->
+    <sql id="Base_Column_List">
+	 id,user_id,user_type,nickname,real_name,company_name,phone,email,password,head_portrait,sex,device,create_time,update_time,longitude,latitude,state,remark,supplier_id
+</sql>
+
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="user_id != null and user_id != ''">
+                and user_id = #{user_id}
+            </if>
+            <if test="user_type != null and user_type != ''">
+                and user_type = #{user_type}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="real_name != null and real_name != ''">
+                and real_name = #{real_name}
+            </if>
+            <if test="company_name != null and company_name != ''">
+                and company_name = #{company_name}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="head_portrait != null and head_portrait != ''">
+                and head_portrait = #{head_portrait}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="device != null and device != ''">
+                and device = #{device}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="longitude != null and longitude != ''">
+                and longitude = #{longitude}
+            </if>
+            <if test="latitude != null and latitude != ''">
+                and latitude = #{latitude}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="supplier_id != null and supplier_id != ''">
+                and supplier_id = #{supplier_id}
+            </if>
+        </trim>
+    </sql>
+
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into
+        `user`(id,user_id,user_type,nickname,real_name,company_name,phone,email,password,head_portrait,sex,device,create_time,update_time,longitude,latitude,state,remark,supplier_id)
+        values(#{id},#{user_id},#{user_type},#{nickname},#{real_name},#{company_name},#{phone},#{email},#{password},#{head_portrait},#{sex},#{device},#{create_time},#{update_time},#{longitude},#{latitude},#{state},#{remark},#{supplier_id})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+  update `user` set user_id=#{user_id},user_type=#{user_type},nickname=#{nickname},real_name=#{real_name},company_name=#{company_name},phone=#{phone},email=#{email},password=#{password},head_portrait=#{head_portrait},sex=#{sex},device=#{device},create_time=#{create_time},update_time=#{update_time},longitude=#{longitude},latitude=#{latitude},state=#{state},remark=#{remark},supplier_id=#{supplier_id} where id=#{id}
+ </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update `user` set
+        <trim suffixOverrides=",">
+            <if test="user_id != null  ">
+                user_id=#{user_id},
+            </if>
+            <if test="user_type != null  ">
+                user_type=#{user_type},
+            </if>
+            <if test="nickname != null  ">
+                nickname=#{nickname},
+            </if>
+            <if test="real_name != null  ">
+                real_name=#{real_name},
+            </if>
+            <if test="company_name != null  ">
+                company_name=#{company_name},
+            </if>
+            <if test="phone != null  ">
+                phone=#{phone},
+            </if>
+            <if test="email != null  ">
+                email=#{email},
+            </if>
+            <if test="password != null  ">
+                password=#{password},
+            </if>
+            <if test="head_portrait != null  ">
+                head_portrait=#{head_portrait},
+            </if>
+            <if test="sex != null  ">
+                sex=#{sex},
+            </if>
+            <if test="device != null  ">
+                device=#{device},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="longitude != null  ">
+                longitude=#{longitude},
+            </if>
+            <if test="latitude != null  ">
+                latitude=#{latitude},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+            <if test="supplier_id != null  ">
+                supplier_id=#{supplier_id},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
+	delete 	 from `user` where id = #{id}
+</delete>
+
+    <!-- 根据id查询 用户管理 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from `user` where id = #{id}
+    </select>
+
+    <!-- 用户管理 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from `user`
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询用户管理列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from `user`
+        <include refid="Example_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
+</mapper>   

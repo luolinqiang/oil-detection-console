@@ -1,30 +1,29 @@
 package oil.detection.controller.bis;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.base.common.DictionaryUtil;
-import oil.detection.entity.bis.Purchase;
+import com.base.util.HtmlUtil;
+import com.base.web.BaseAction;
+import oil.detection.entity.bis.Order;
+import oil.detection.entity.bis.Product;
+import oil.detection.entity.bis.Supplier;
+import oil.detection.entity.bis.User;
+import oil.detection.page.bis.OrderPage;
+import oil.detection.service.bis.OrderService;
+import oil.detection.service.bis.ProductService;
+import oil.detection.service.bis.SupplierService;
+import oil.detection.service.bis.UserService;
 import org.apache.commons.lang.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import com.base.web.BaseAction;
-import com.base.util.HtmlUtil;
-import com.base.entity.BaseEntity.DELETED;
-import oil.detection.entity.bis.Order;
-import oil.detection.page.bis.OrderPage;
-import oil.detection.service.bis.OrderService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <b>功能：</b>OrderController<br>
@@ -38,6 +37,12 @@ public class OrderController extends BaseAction {
     // Servrice start
     @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
     private OrderService<Order> orderService;
+    @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
+    private UserService<User> userService;
+    @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
+    private SupplierService<Supplier> supplierService;
+    @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
+    private ProductService<Product> productService;
 
 
     /**
@@ -67,6 +72,9 @@ public class OrderController extends BaseAction {
         for (Order order : dataList) {
             order.setPay_type_desc(DictionaryUtil.dictionaryMap.get(order.getPay_type()));
             order.setDelivery_type_desc(DictionaryUtil.dictionaryMap.get(order.getDelivery_type()));
+            order.setUser_name(userService.queryById(order.getUser_id()).getReal_name());
+            order.setSupplier_name(supplierService.queryById(order.getSupplier_id()).getCompany_name());
+            order.setProduct_name(productService.queryById(order.getProduct_id()).getName());
         }
         //设置页面数据
         Map<String, Object> jsonMap = new HashMap<String, Object>();

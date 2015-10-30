@@ -107,18 +107,18 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into
-        order(id,user_id,product_id,supplier_id,order_type,price,number,total_price,pay_type,delivery_type,car_number,receiver_name,receiver_phone,receiver_addr,other_require,create_time,update_time,arrival_time,remark,state)
+        `order`(id,user_id,product_id,supplier_id,order_type,price,number,total_price,pay_type,delivery_type,car_number,receiver_name,receiver_phone,receiver_addr,other_require,create_time,update_time,arrival_time,remark,state)
         values(#{id},#{user_id},#{product_id},#{supplier_id},#{order_type},#{price},#{number},#{total_price},#{pay_type},#{delivery_type},#{car_number},#{receiver_name},#{receiver_phone},#{receiver_addr},#{other_require},#{create_time},#{update_time},#{arrival_time},#{remark},#{state})
     </insert>
 
     <!-- 根据id，修改记录-->
     <update id="update" parameterType="Object">
-  update order set user_id=#{user_id},product_id=#{product_id},supplier_id=#{supplier_id},order_type=#{order_type},price=#{price},number=#{number},total_price=#{total_price},pay_type=#{pay_type},delivery_type=#{delivery_type},car_number=#{car_number},receiver_name=#{receiver_name},receiver_phone=#{receiver_phone},receiver_addr=#{receiver_addr},other_require=#{other_require},create_time=#{create_time},update_time=#{update_time},arrival_time=#{arrival_time},remark=#{remark},state=#{state} where id=#{id}
+  update `order` set user_id=#{user_id},product_id=#{product_id},supplier_id=#{supplier_id},order_type=#{order_type},price=#{price},number=#{number},total_price=#{total_price},pay_type=#{pay_type},delivery_type=#{delivery_type},car_number=#{car_number},receiver_name=#{receiver_name},receiver_phone=#{receiver_phone},receiver_addr=#{receiver_addr},other_require=#{other_require},create_time=#{create_time},update_time=#{update_time},arrival_time=#{arrival_time},remark=#{remark},state=#{state} where id=#{id}
  </update>
 
     <!-- 修改记录，只修改只不为空的字段 -->
     <update id="updateBySelective" parameterType="Object">
-        update order set
+        update `order` set
         <trim suffixOverrides=",">
             <if test="user_id != null  ">
                 user_id=#{user_id},
@@ -183,19 +183,19 @@
 
     <!-- 删除记录 -->
     <delete id="delete" parameterType="Object">
-	delete 	 from order where id = #{id}
+	delete 	 from `order` where id = #{id}
 </delete>
 
     <!-- 根据id查询 订单管理 -->
     <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
         select
         <include refid="Base_Column_List"/>
-        from order where id = #{id}
+        from `order` where id = #{id}
     </select>
 
     <!-- 订单管理 列表总数-->
     <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
-        select count(1) from order
+        select count(1) from `order`
         <include refid="Example_Where_Clause"/>
     </select>
 
@@ -203,7 +203,7 @@
     <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
         select
         <include refid="Base_Column_List"/>
-        from order
+        from `order`
         <include refid="Example_Where_Clause"/>
         <if test="pager.orderCondition != null and pager.orderCondition != ''">
             ${pager.orderCondition}

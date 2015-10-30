@@ -19,19 +19,19 @@ jeecg.order = function () {
                 columns: [[
                     {field: 'id', checkbox: true},
                     {
-                        field: 'user_id', title: '用户id', align: 'center', sortable: true,
+                        field: 'user_name', title: '用户', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             return row.user_id;
                         }
                     },
                     {
-                        field: 'product_id', title: '产品id', align: 'center', sortable: true,
+                        field: 'product_name', title: '产品', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             return row.product_id;
                         }
                     },
                     {
-                        field: 'supplier_id', title: '供应商id', align: 'center', sortable: true,
+                        field: 'supplier_name', title: '供应商id', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
                             return row.supplier_id;
                         }
@@ -150,7 +150,15 @@ jeecg.order = function () {
                             return row.state;
                         }
                     },
-                ]]
+                ]],
+                toolbar: [
+                    {
+                        id: '',
+                        text: '',
+                        iconCls: '',
+                        btnType: '',
+                    },
+                ]
             }
         },
         init: function () {
