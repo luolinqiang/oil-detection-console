@@ -66,8 +66,10 @@
             </div>
             <div class="fitem">
                 <label>所在地id</label>
-                <input name="area_id" type="text" maxlength="" class="easyui-validatebox" data-options=""
-                       missingMessage="请填写所在地id">
+                <input id="area_id" class="hidden" name="area_id">
+                <input id="area_name" name="area_name" type="text" maxlength="" class="easyui-validatebox"
+                       data-options="precision:2,groupSeparator:','" missingMessage="请填写所在地id">
+                <a href="#" id="area-select-btn" class="easyui-linkbutton" iconCls="icon-search">选择</a>
             </div>
             <div class="fitem">
                 <label>地址</label>
@@ -103,6 +105,7 @@
         </div>
     </form>
 </div>
+
 <script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-supplier.js"></script>
 </body>
 </html>

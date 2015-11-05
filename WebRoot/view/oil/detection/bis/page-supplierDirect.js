@@ -191,12 +191,69 @@ jeecg.supplier = function () {
                 textField: 'name'
             });
 
+            $("#area-select-btn").click(function () {
+                $("#area-select-win").dialog({
+                    title: '选择供应商',
+                    href: '/supplier/listAreaSelect.shtml',
+                    iconCls: 'icon-edit',
+                    modal: true,
+                    closed: true,
+                    buttons: [
+                        {
+                            text: '选择',
+                            handler: function () {
+                                var record = Utils.getCheckedRows();
+                                if (!Utils.checkSelectOne(record)) {
+                                    return;
+                                }
+                                $("#area_id").val(record[0].id);
+                                $("#area_name").val(record[0].area_name);
+                                $("#area-select-win").dialog('close');
+                            }
+                        }, {
+                            text: '关闭',
+                            handler: function () {
+                                $("#area-select-win").dialog('close');
+                            }
+                        }
+                    ]
+                });
+                $("#area-select-win").dialog("open");
+            });
+
             _box = new YDataGrid(_this.config);
             _box.init();
         }
     }
     return _this;
 }();
+
+//Grid 工具类
+var Utils = {
+    getCheckedRows: function () {
+        return $("#supplier-supplier-dialog").datagrid('getChecked');
+    },
+    checkSelect: function (rows) {//检查grid是否有勾选的行, 有返回 true,没有返回true
+        var records = rows;
+        if (records && records.length > 0) {
+            return true;
+        }
+        jeecg.alert('警告', '未选中记录.', 'warning');
+        return false;
+
+    },
+    checkSelectOne: function (rows) {//检查grid是否只勾选了一行,是返回 true,否返回true
+        var records = rows;
+        if (!Utils.checkSelect(records)) {
+            return false;
+        }
+        if (records.length == 1) {
+            return true;
+        }
+        jeecg.alert('警告', '只能选择一行记录.', 'warning');
+        return false;
+    }
+}
 
 $(function () {
     jeecg.supplier.init();

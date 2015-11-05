@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oil.detection.dao.bis.AreaDao">
+    <!-- Result Map-->
+    <resultMap id="BaseResultMap" type="oil.detection.entity.bis.Area">
+        <result column="id" property="id"/>
+        <result column="pid" property="pid"/>
+        <result column="area_level" property="area_level"/>
+        <result column="area_code" property="area_code"/>
+        <result column="area_name" property="area_name"/>
+        <result column="area_sort" property="area_sort"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="state" property="state"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- area table all fields -->
+    <sql id="Base_Column_List">
+	 id,pid,area_level,area_code,area_name,area_sort,longitude,latitude,create_time,update_time,state,remark
+</sql>
+
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="pid != null and pid != ''">
+                and pid = #{pid}
+            </if>
+            <if test="area_level != null and area_level != ''">
+                and area_level = #{area_level}
+            </if>
+            <if test="area_code != null and area_code != ''">
+                and area_code = #{area_code}
+            </if>
+            <if test="area_name != null and area_name != ''">
+                and area_name = #{area_name}
+            </if>
+            <if test="area_sort != null and area_sort != ''">
+                and area_sort = #{area_sort}
+            </if>
+            <if test="longitude != null and longitude != ''">
+                and longitude = #{longitude}
+            </if>
+            <if test="latitude != null and latitude != ''">
+                and latitude = #{latitude}
+            </if>
+            <if test="create_time != null and create_time != ''">
+                and create_time = #{create_time}
+            </if>
+            <if test="update_time != null and update_time != ''">
+                and update_time = #{update_time}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </trim>
+    </sql>
+
+
+    <!-- 插入记录 -->
+    <insert id="add" parameterType="Object">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into
+        area(id,pid,area_level,area_code,area_name,area_sort,longitude,latitude,create_time,update_time,state,remark)
+        values(#{id},#{pid},#{area_level},#{area_code},#{area_name},#{area_sort},#{longitude},#{latitude},#{create_time},#{update_time},#{state},#{remark})
+    </insert>
+
+    <!-- 根据id，修改记录-->
+    <update id="update" parameterType="Object">
+  update area set pid=#{pid},area_level=#{area_level},area_code=#{area_code},area_name=#{area_name},area_sort=#{area_sort},longitude=#{longitude},latitude=#{latitude},create_time=#{create_time},update_time=#{update_time},state=#{state},remark=#{remark} where id=#{id}
+ </update>
+
+    <!-- 修改记录，只修改只不为空的字段 -->
+    <update id="updateBySelective" parameterType="Object">
+        update area set
+        <trim suffixOverrides=",">
+            <if test="pid != null  ">
+                pid=#{pid},
+            </if>
+            <if test="area_level != null  ">
+                area_level=#{area_level},
+            </if>
+            <if test="area_code != null  ">
+                area_code=#{area_code},
+            </if>
+            <if test="area_name != null  ">
+                area_name=#{area_name},
+            </if>
+            <if test="area_sort != null  ">
+                area_sort=#{area_sort},
+            </if>
+            <if test="longitude != null  ">
+                longitude=#{longitude},
+            </if>
+            <if test="latitude != null  ">
+                latitude=#{latitude},
+            </if>
+            <if test="create_time != null  ">
+                create_time=#{create_time},
+            </if>
+            <if test="update_time != null  ">
+                update_time=#{update_time},
+            </if>
+            <if test="state != null  ">
+                state=#{state},
+            </if>
+            <if test="remark != null  ">
+                remark=#{remark},
+            </if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="delete" parameterType="Object">
+	delete 	 from area where id = #{id}
+</delete>
+
+    <!-- 根据id查询 区域管理 -->
+    <select id="queryById" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from area where id = #{id}
+    </select>
+
+    <!-- 区域管理 列表总数-->
+    <select id="queryByCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from area
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询区域管理列表 -->
+    <select id="queryByList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from area
+        <include refid="Example_Where_Clause"/>
+        <if test="pager.orderCondition != null and pager.orderCondition != ''">
+            ${pager.orderCondition}
+        </if>
+        <if test="pager.mysqlQueryCondition != null and pager.mysqlQueryCondition != ''">
+            ${pager.mysqlQueryCondition}
+        </if>
+    </select>
+
+</mapper>   
