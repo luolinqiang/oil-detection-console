@@ -108,7 +108,7 @@
 
 <!-- Edit Win&Form -->
 <div id="area-select-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
-     style="width:800px;height:380px;">
+     style="width:450px;height:400px;">
 </div>
 <script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-supplierDirect.js"></script>
 </body>

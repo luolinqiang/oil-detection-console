@@ -34,8 +34,8 @@
 <%--<table id="data-list-select"></table>--%>
 <%--</div>--%>
 
-<table id="supplier-supplier-dialog" class="easyui-datagrid" title="" style="width:780px;height:300px"
-       data-options="singleSelect:true,collapsible:true,url:'/area/dataList.do',method:'post'">
+<table id="supplier-supplier-dialog" class="easyui-datagrid" title="" style=""
+       data-options="singleSelect:true,collapsible:true,pagination:true,url:'/area/dataList.do',method:'post'">
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
