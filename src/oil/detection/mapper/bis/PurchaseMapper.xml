@@ -162,6 +162,9 @@
             <if test="product_id != null  ">
                 product_id=#{product_id},
             </if>
+            <if test="supplier_id != null  ">
+                supplier_id=#{supplier_id},
+            </if>
         </trim>
         where id=#{id}
     </update>

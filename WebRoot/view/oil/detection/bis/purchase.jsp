@@ -17,8 +17,8 @@
             </select>
             <label class="ui-label">油类型:</label>
             <select class="easyui-combobox" name="oil_type" data-options="required:true">
-                <option value="1" selected="selected">柴油</option>
-                <option value="2">汽油</option>
+                <option value="31" selected="selected">柴油</option>
+                <option value="32">汽油</option>
             </select>
             <label class="ui-label">采购类型:</label>
             <select class="easyui-combobox" name="purchase_type" data-options="required:true">
@@ -113,7 +113,7 @@
                        missingMessage="请填写条件">
             </div>
             <div class="fitem">
-                <label> 其他要求</label>
+                <label>其他要求</label>
                 <input name="other_require" type="text" maxlength="255" class="easyui-validatebox" data-options=""
                        missingMessage="请填写 其他要求">
             </div>
@@ -124,6 +124,11 @@
 <!-- Edit Win&Form -->
 <div id="audit-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
      style="width:400px;height:400px;">
+</div>
+
+<!-- Edit Win&Form -->
+<div id="supplier-select-win" class="easyui-dialog" title="" data-options="closed:true,iconCls:'icon-save',modal:true"
+     style="width:800px;height:400px;">
 </div>
 <script type="text/javascript" src="<%=basePath%>/view/oil/detection/bis/page-purchase.js"></script>
 </body>

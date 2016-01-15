@@ -209,13 +209,13 @@ jeecg.product = function () {
         },
         init: function () {
             $("#quality_standard").combobox({
-                url: '/dic/dataJson.do?group_code=quality_standard',
+                url: '/dic/dataJson.do?group_code=item_standard_diesel',
                 valueField: 'id',
                 textField: 'name'
             });
 
             $("#product_model").combobox({
-                url: '/dic/dataJson.do?group_code=product_model',
+                url: '/dic/dataJson.do?group_code=item_model_diesel',
                 valueField: 'id',
                 textField: 'name'
             });

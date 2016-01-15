@@ -97,6 +97,9 @@
             <if test="state != null and state != ''">
                 and state = #{state}
             </if>
+            <if test="purchase_id != null and purchase_id != ''">
+                and purchase_id = #{purchase_id}
+            </if>
         </trim>
     </sql>
 

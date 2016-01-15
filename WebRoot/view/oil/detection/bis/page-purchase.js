@@ -21,10 +21,10 @@ jeecg.purchase = function () {
                     {
                         field: 'oil_type', title: '油类型', align: 'center', sortable: true,
                         formatter: function (value, row, index) {
-                            if (value == 1) {
+                            if (value == 31) {
                                 return "柴油";
                             }
-                            if (value == 2) {
+                            if (value == 32) {
                                 return "汽油";
                             }
                             return row.oil_type;
@@ -152,26 +152,26 @@ jeecg.purchase = function () {
                         iconCls: 'icon-ok',
                         btnType: 'audit',
                         handler: function () {
-                            $("#audit-win").dialog({
-                                title: '发货操作',
-                                href: '/supplier/list.shtml',
-                                iconCls: 'icon-edit',
-                                modal: true,
-                                closed: true
-                            });
-                            $("#audit-win").dialog("open");
-                            //var record = _box.utils.getCheckedRows();
-                            //if (!_box.utils.checkSelectOne(record)) {
-                            //    return;
-                            //}
-                            //jeecg.ajaxJson("/purchase/save.do?id=" + record[0].id + "&state=2", [], function (data) {
-                            //    if (data.success) {
-                            //        _box.handler.refresh();
-                            //        jeecg.alert('提示', "操作成功");
-                            //    } else {
-                            //        jeecg.alert('提示', "操作失败");
-                            //    }
+                            //$("#audit-win").dialog({
+                            //    title: '发货操作',
+                            //    href: '/supplier/list.shtml',
+                            //    iconCls: 'icon-edit',
+                            //    modal: true,
+                            //    closed: true
                             //});
+                            //$("#audit-win").dialog("open");
+                            var record = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(record)) {
+                                return;
+                            }
+                            jeecg.ajaxJson("/purchase/save.do?id=" + record[0].id + "&state=2", [], function (data) {
+                                if (data.success) {
+                                    _box.handler.refresh();
+                                    jeecg.alert('提示', "操作成功");
+                                } else {
+                                    jeecg.alert('提示', "操作失败");
+                                }
+                            });
                         }
                     },
                     {
@@ -194,18 +194,53 @@ jeecg.purchase = function () {
                             });
                         }
                     },
+                    {
+                        id: 'btnsupsel',
+                        text: '选择供应商',
+                        iconCls: 'icon-edit',
+                        btnType: 'audit',
+                        handler: function () {
+                            $("#supplier-select-win").dialog({
+                                title: '选择供应商',
+                                href: '/supplier/listSelect.do',
+                                iconCls: 'icon-edit',
+                                modal: true,
+                                closed: true,
+                                buttons: [
+                                    {
+                                        text: '选择',
+                                        handler: function () {
+                                            var record = Utils.getCheckedRows();
+                                            if (!Utils.checkSelectOne(record)) {
+                                                return;
+                                            }
+                                            //$("#area_id").val(record[0].id);
+                                            //$("#area_name").val(record[0].area_name);
+                                            $("#supplier-select-win").dialog('close');
+                                        }
+                                    }, {
+                                        text: '关闭',
+                                        handler: function () {
+                                            $("#supplier-select-win").dialog('close');
+                                        }
+                                    }
+                                ]
+                            });
+                            $("#supplier-select-win").dialog("open");
+                        }
+                    },
                 ]
             }
         },
         init: function () {
             $("#quality_standard").combobox({
-                url: '/dic/dataJson.do?group_code=quality_standard',
+                url: '/dic/dataJson.do?group_code=item_standard_diesel',
                 valueField: 'id',
                 textField: 'name'
             });
 
             $("#product_model").combobox({
-                url: '/dic/dataJson.do?group_code=product_model',
+                url: '/dic/dataJson.do?group_code=item_model_diesel',
                 valueField: 'id',
                 textField: 'name'
             });

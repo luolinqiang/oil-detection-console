@@ -1,19 +1,15 @@
 package oil.detection.controller.bis;
 
 import com.base.common.DictionaryUtil;
+import com.base.entity.BaseEntity;
 import com.base.util.HtmlUtil;
 import com.base.web.BaseAction;
-import oil.detection.entity.bis.Order;
-import oil.detection.entity.bis.Product;
-import oil.detection.entity.bis.Supplier;
-import oil.detection.entity.bis.User;
+import oil.detection.entity.bis.*;
 import oil.detection.page.bis.OrderPage;
-import oil.detection.service.bis.OrderService;
-import oil.detection.service.bis.ProductService;
-import oil.detection.service.bis.SupplierService;
-import oil.detection.service.bis.UserService;
+import oil.detection.service.bis.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.StyledEditorKit;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +41,8 @@ public class OrderController extends BaseAction {
     private SupplierService<Supplier> supplierService;
     @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
     private ProductService<Product> productService;
+    @Autowired(required = false) //自动注入，不需要生成set方法了，required=false表示没有实现类，也不会报错。
+    private PurchaseService<Purchase> purchaseService;
 
 
     /**
@@ -91,18 +91,16 @@ public class OrderController extends BaseAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/save")
-    public void save(Order entity, Integer[] typeIds, HttpServletResponse response) throws Exception {
-        Map<String, Object> context = new HashMap<String, Object>();
-        if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
-            orderService.add(entity);
-        } else {
-            orderService.updateBySelective(entity);
-        }
-        sendSuccessMessage(response, "保存成功~");
-    }
-
-
+//    @RequestMapping("/save")
+//    public void save(Order entity, Integer[] typeIds, HttpServletResponse response) throws Exception {
+//        Map<String, Object> context = new HashMap<String, Object>();
+//        if (entity.getId() == null || StringUtils.isBlank(entity.getId().toString())) {
+//            orderService.add(entity);
+//        } else {
+//            orderService.updateBySelective(entity);
+//        }
+//        sendSuccessMessage(response, "保存成功~");
+//    }
     @RequestMapping("/getId")
     public void getId(String id, HttpServletResponse response) throws Exception {
         Map<String, Object> context = new HashMap();
@@ -116,11 +114,44 @@ public class OrderController extends BaseAction {
         HtmlUtil.writerJson(response, context);
     }
 
+    /**
+     * 生成订单
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/save")
+    public void save(int purchaseId, int supplierId, HttpServletResponse response) throws Exception {
+        Purchase purchaseUpdate = new Purchase();
+        purchaseUpdate.setId(purchaseId);
+        purchaseUpdate.setSupplier_id(supplierId);
+        purchaseService.updateBySelective(purchaseUpdate);
 
-    @RequestMapping("/delete")
-    public void delete(String[] id, HttpServletResponse response) throws Exception {
-        orderService.delete(id);
-        sendSuccessMessage(response, "删除成功");
+        Purchase purchase = purchaseService.queryById(purchaseId);
+        purchase.setSupplier_id(supplierId);
+
+        Order order = new Order();
+        BeanUtils.copyProperties(purchase, order);
+        order.setOrder_type(purchase.getPurchase_type());
+        order.setReceiver_addr(purchase.getDelivery_addr());
+        order.setPurchase_id(purchaseId);
+
+        Product product = productService.queryById(purchase.getProduct_id());
+        order.setPrice(product.getPrice());
+        order.setTotal_price(order.getNumber().multiply(order.getPrice()));
+        User user = userService.queryById(purchase.getUser_id());
+        order.setReceiver_name(user.getReal_name());
+        order.setReceiver_phone(user.getUser_id());
+
+        OrderPage orderPage = new OrderPage();
+        orderPage.setPurchase_id(purchaseId);
+        List<Product> products = productService.queryByList(orderPage);
+        for (Product product1 : products) {
+            productService.delete(product1.getId());
+        }
+        orderService.add(order);
+
+        sendSuccessMessage(response, "保存成功~");
     }
 
 }
