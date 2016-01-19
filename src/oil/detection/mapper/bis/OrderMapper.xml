@@ -110,8 +110,8 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into
-        `order`(id,user_id,product_id,supplier_id,order_type,price,number,total_price,pay_type,delivery_type,car_number,receiver_name,receiver_phone,receiver_addr,other_require,create_time,update_time,arrival_time,remark,state)
-        values(#{id},#{user_id},#{product_id},#{supplier_id},#{order_type},#{price},#{number},#{total_price},#{pay_type},#{delivery_type},#{car_number},#{receiver_name},#{receiver_phone},#{receiver_addr},#{other_require},#{create_time},#{update_time},#{arrival_time},#{remark},#{state})
+        `order`(id,user_id,product_id,supplier_id,order_type,price,number,total_price,pay_type,delivery_type,car_number,receiver_name,receiver_phone,receiver_addr,other_require,create_time,update_time,arrival_time,remark,state,purchase_id)
+        values(#{id},#{user_id},#{product_id},#{supplier_id},#{order_type},#{price},#{number},#{total_price},#{pay_type},#{delivery_type},#{car_number},#{receiver_name},#{receiver_phone},#{receiver_addr},#{other_require},#{create_time},#{update_time},#{arrival_time},#{remark},#{state},#{purchase_id})
     </insert>
 
     <!-- 根据id，修改记录-->

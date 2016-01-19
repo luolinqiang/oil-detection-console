@@ -200,6 +200,10 @@ jeecg.purchase = function () {
                         iconCls: 'icon-edit',
                         btnType: 'audit',
                         handler: function () {
+                            var recordParent = _box.utils.getCheckedRows();
+                            if (!_box.utils.checkSelectOne(recordParent)) {
+                                return;
+                            }
                             $("#supplier-select-win").dialog({
                                 title: '选择供应商',
                                 href: '/supplier/listSelect.do',
@@ -214,8 +218,14 @@ jeecg.purchase = function () {
                                             if (!Utils.checkSelectOne(record)) {
                                                 return;
                                             }
-                                            //$("#area_id").val(record[0].id);
-                                            //$("#area_name").val(record[0].area_name);
+                                            jeecg.ajaxJson("/order/save.do?purchaseId=" + recordParent[0].id + "&supplierId=" + record[0].id, [], function (data) {
+                                                if (data.success) {
+                                                    _box.handler.refresh();
+                                                    jeecg.alert('提示', "操作成功");
+                                                } else {
+                                                    jeecg.alert('提示', "操作失败");
+                                                }
+                                            });
                                             $("#supplier-select-win").dialog('close');
                                         }
                                     }, {
@@ -264,6 +274,33 @@ jeecg.purchase = function () {
     };
     return _this;
 }();
+
+//Grid 工具类
+var Utils = {
+    getCheckedRows: function () {
+        return $("#supplier-supplier-dialog").datagrid('getChecked');
+    },
+    checkSelect: function (rows) {//检查grid是否有勾选的行, 有返回 true,没有返回true
+        var records = rows;
+        if (records && records.length > 0) {
+            return true;
+        }
+        jeecg.alert('警告', '未选中记录.', 'warning');
+        return false;
+
+    },
+    checkSelectOne: function (rows) {//检查grid是否只勾选了一行,是返回 true,否返回true
+        var records = rows;
+        if (!Utils.checkSelect(records)) {
+            return false;
+        }
+        if (records.length == 1) {
+            return true;
+        }
+        jeecg.alert('警告', '只能选择一行记录.', 'warning');
+        return false;
+    }
+}
 
 $(function () {
     jeecg.purchase.init();

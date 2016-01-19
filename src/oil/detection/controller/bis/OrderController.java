@@ -4,6 +4,7 @@ import com.base.common.DictionaryUtil;
 import com.base.entity.BaseEntity;
 import com.base.util.HtmlUtil;
 import com.base.web.BaseAction;
+import com.jeecg.exception.ServiceException;
 import oil.detection.entity.bis.*;
 import oil.detection.page.bis.OrderPage;
 import oil.detection.service.bis.*;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.StyledEditorKit;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -128,26 +130,37 @@ public class OrderController extends BaseAction {
         purchaseService.updateBySelective(purchaseUpdate);
 
         Purchase purchase = purchaseService.queryById(purchaseId);
+        if (purchase == null) {
+            throw new ServiceException(String.format("采购者[%d]不存在.", purchaseId));
+        }
         purchase.setSupplier_id(supplierId);
 
         Order order = new Order();
-        BeanUtils.copyProperties(purchase, order);
+        BeanUtils.copyProperties(purchase, order, new String[]{"number"});
+        order.setId(null);
+        order.setNumber(new BigDecimal(purchase.getNumber()));
         order.setOrder_type(purchase.getPurchase_type());
         order.setReceiver_addr(purchase.getDelivery_addr());
         order.setPurchase_id(purchaseId);
 
         Product product = productService.queryById(purchase.getProduct_id());
+        if (product == null) {
+            throw new ServiceException(String.format("产品[%d]不存在.", purchase.getProduct_id()));
+        }
         order.setPrice(product.getPrice());
         order.setTotal_price(order.getNumber().multiply(order.getPrice()));
         User user = userService.queryById(purchase.getUser_id());
+        if (user == null) {
+            throw new ServiceException(String.format("用户[%d]不存在.", purchase.getUser_id()));
+        }
         order.setReceiver_name(user.getReal_name());
         order.setReceiver_phone(user.getUser_id());
 
         OrderPage orderPage = new OrderPage();
         orderPage.setPurchase_id(purchaseId);
-        List<Product> products = productService.queryByList(orderPage);
-        for (Product product1 : products) {
-            productService.delete(product1.getId());
+        List<Order> orders = orderService.queryByList(orderPage);
+        for (Order order1 : orders) {
+            orderService.delete(order1.getId());
         }
         orderService.add(order);
 
